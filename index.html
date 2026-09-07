@@ -1,0 +1,4012 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐍 Manual de Python: De Cero a tu Primer Algoritmo | Ing. Juancito Peña</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- Prism.js Tema Tomorrow Night -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #F6F8FC;
+      --bg-card: #FFFFFF;
+      --line: #E2E8F1;
+      --ink: #16202B;
+      --ink-soft: #54617A;
+      --ink-faint: #8793A8;
+      --py-blue: #2F6D9C;
+      --py-blue-deep: #1E4C72;
+      --py-blue-pale: #EAF3FB;
+      --py-yellow: #F5C518;
+      --py-yellow-deep: #D9A700;
+      --accent-green: #10B981;
+      --accent-rose: #EF4444;
+      --code-bg: #1E2530;
+      --code-ink: #E7ECF3;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.68;
+    }
+
+    h1, h2, h3, h4, .display-font {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+    a { color: var(--py-blue-deep); text-decoration: none; }
+    a:hover { color: var(--py-blue); }
+
+    /* Palabras Clave y Énfasis Semántico */
+    .kw-blue { color: var(--py-blue); font-weight: 700; }
+    .kw-yellow { color: var(--py-yellow-deep); font-weight: 700; }
+    .kw-green { color: var(--accent-green); font-weight: 700; }
+    .kw-rose { color: var(--accent-rose); font-weight: 700; }
+
+    /* Borde Animado Estilo Río Tecnológico (Cyber River) */
+    .cyber-river-card {
+      position: relative;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 2.2rem;
+      margin-bottom: 2rem;
+      z-index: 1;
+      overflow: hidden;
+      box-shadow: 0 10px 28px -10px rgba(30, 76, 114, 0.12);
+    }
+    .cyber-river-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: conic-gradient(
+        transparent,
+        var(--py-blue),
+        transparent 35%,
+        transparent,
+        var(--py-yellow),
+        transparent 70%,
+        var(--accent-green),
+        transparent 95%
+      );
+      animation: riverFlow 9s linear infinite;
+      z-index: -2;
+    }
+    .cyber-river-card::after {
+      content: '';
+      position: absolute;
+      inset: 2.5px;
+      background: var(--bg-card);
+      border-radius: calc(var(--radius) - 2px);
+      z-index: -1;
+    }
+    @keyframes riverFlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Animación de Latido (Heartbeat) */
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      15% { transform: scale(1.1); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.05); }
+      60% { transform: scale(1); }
+    }
+    .img-heartbeat {
+      animation: heartbeat 2.2s infinite ease-in-out;
+      flex-shrink: 0;
+    }
+
+    /* Navbar */
+    .navbar-manual {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      z-index: 1020;
+    }
+    .navbar-brand-manual {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--py-blue-deep) !important;
+      font-size: 1.3rem;
+    }
+    .nav-link-manual {
+      color: var(--ink-soft) !important;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+    .nav-link-manual:hover {
+      color: var(--py-blue) !important;
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero {
+      background:
+        radial-gradient(1000px 480px at 85% -10%, rgba(245, 197, 24, 0.22), transparent 60%),
+        radial-gradient(850px 500px at 5% 0%, rgba(47, 109, 156, 0.16), transparent 55%),
+        var(--bg);
+      padding: 5.5rem 0 4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--py-blue-pale); color: var(--py-blue-deep);
+      border: 1px solid #cfe3f3; padding: .4rem 1rem; border-radius: 999px;
+      font-size: .84rem; font-weight: 700;
+    }
+    .hero h1 { font-size: clamp(2.3rem, 4.5vw, 3.4rem); font-weight: 800; line-height: 1.15; }
+    .badge-soft {
+      background: #fff; border: 1px solid var(--line); color: var(--ink-soft);
+      padding: .45rem .85rem; border-radius: 10px; font-size: .84rem; font-weight: 600;
+    }
+
+    /* Terminal Mockup */
+    .terminal {
+      background: var(--code-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 45px -18px rgba(15, 30, 50, .45);
+      overflow: hidden;
+      border: 1px solid #2b3444;
+    }
+    .terminal-bar {
+      display: flex; align-items: center; gap: .45rem;
+      padding: .65rem .95rem; background: #171d27; border-bottom: 1px solid #2b3444;
+    }
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+    .terminal-title {
+      margin-left: .5rem; color: #8a94a6; font-size: .78rem; font-family: 'JetBrains Mono', monospace;
+    }
+    .terminal-body {
+      padding: 1.2rem; min-height: 220px; color: var(--code-ink);
+      font-family: 'JetBrains Mono', monospace; font-size: .88rem;
+    }
+    .terminal-prompt { color: #7ee787; }
+    .caret {
+      display: inline-block; width: 8px; background: var(--py-yellow);
+      animation: blink 1s steps(1) infinite; margin-left: 2px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Secciones */
+    section { scroll-margin-top: 85px; }
+    .section-pad { padding: 4.5rem 0; }
+    .section-divider { border: 0; height: 1px; background: var(--line); margin: 0; }
+    .section-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--py-blue-deep); font-weight: 700; font-size: .88rem; letter-spacing: .05em;
+    }
+    .section-title { font-weight: 800; font-size: 2.2rem; margin-top: .35rem; }
+    .lead-soft { color: var(--ink-soft); font-size: 1.1rem; max-width: 860px; }
+
+    /* Tarjetas y Contenedores */
+    .card-manual {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      height: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-manual:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px -8px rgba(30, 76, 114, 0.12);
+    }
+    .icon-chip {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--py-blue-pale); color: var(--py-blue-deep);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.35rem; flex-shrink: 0;
+    }
+    .icon-chip.yellow { background: #FFF7DD; color: var(--py-yellow-deep); }
+    .icon-chip.green { background: #DCFCE7; color: var(--accent-green); }
+
+    /* Imágenes y Figuras */
+    .python-logo-intro { width: 75px; height: 75px; object-fit: contain; }
+    .guido-photo {
+      width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--py-blue-pale);
+    }
+    .env-img-wrapper {
+      margin-top: 1.2rem; text-align: center; overflow: hidden;
+      border-radius: var(--radius-sm); border: 1px solid var(--line);
+      background: #fff;
+    }
+    .env-img { max-height: 220px; width: 100%; object-fit: cover; object-position: top; }
+    .env-img-contain { object-fit: contain; padding: 12px; }
+
+    /* Tablas */
+    .table-seniority th {
+      background-color: var(--py-blue-pale) !important;
+      color: var(--py-blue-deep) !important;
+      font-weight: 700; border-bottom: 2px solid #cfe3f3 !important;
+      padding: 1rem; font-family: 'Space Grotesk', sans-serif;
+    }
+    .table-seniority td {
+      vertical-align: middle; color: var(--ink-soft);
+      border-bottom: 1px solid var(--line); padding: 1.2rem 1rem; font-size: 0.94rem;
+    }
+    .badge-demand {
+      font-family: 'JetBrains Mono', monospace; font-weight: 600;
+      font-size: 0.78rem; padding: 0.4rem 0.65rem; border-radius: 6px;
+    }
+
+    /* Pestañas de Ejemplos */
+    .topic-block {
+      background: var(--bg-card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 2rem; margin-bottom: 1.8rem;
+    }
+    .topic-number {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 800;
+      color: #cfd8e6; font-size: 2.2rem; line-height: 1;
+    }
+    .example-tabs .nav-link {
+      color: var(--ink-soft); font-size: .88rem; font-weight: 600;
+      border: 1px solid transparent; border-radius: 8px 8px 0 0; padding: .55rem 1.1rem;
+    }
+    .example-tabs .nav-link.active {
+      background: var(--code-bg); color: #fff; border-color: var(--code-bg);
+    }
+    .example-pane {
+      background: var(--code-bg); border-radius: 0 10px 10px 10px;
+      overflow: hidden; margin-bottom: 1rem;
+    }
+    .example-pane pre {
+      margin: 0; padding: 1.2rem; background: transparent !important;
+      font-size: .88rem; max-height: 480px; overflow: auto;
+    }
+    .example-note {
+      background: var(--py-blue-pale); border-top: 1px solid #d9e8f5;
+      color: var(--py-blue-deep); font-size: .88rem; padding: .8rem 1.2rem;
+      border-radius: 0 0 10px 10px; font-weight: 500;
+    }
+
+    /* TOC Flotante */
+    .toc-sticky { position: sticky; top: 95px; max-height: calc(100vh - 120px); overflow-y: auto; }
+    .toc-list a {
+      display: block; color: var(--ink-soft); text-decoration: none; font-size: .88rem;
+      padding: .35rem 0; border-left: 2px solid transparent; padding-left: .8rem;
+    }
+    .toc-list a:hover { color: var(--py-blue-deep); border-color: var(--py-blue); font-weight: 600; }
+    .toc-group-title {
+      font-size: .75rem; text-transform: uppercase; letter-spacing: .05em;
+      color: var(--ink-faint); font-weight: 800; margin: 1rem 0 .3rem;
+    }
+
+    /* Botones */
+    .btn-python {
+      background: var(--py-yellow); border: none; color: #111; font-weight: 700;
+      border-radius: 10px; padding: .75rem 1.6rem; transition: all .2s;
+    }
+    .btn-python:hover { background: var(--py-yellow-deep); color: #111; transform: translateY(-2px); }
+    .btn-outline-manual {
+      border: 1.5px solid var(--py-blue-deep); color: var(--py-blue-deep);
+      border-radius: 10px; font-weight: 700; padding: .75rem 1.6rem;
+    }
+    .btn-outline-manual:hover { background: var(--py-blue-pale); color: var(--py-blue-deep); }
+
+    /* Footer */
+    footer {
+      background: var(--py-blue-deep); color: #dce9f4; padding: 3.5rem 0 2.5rem;
+    }
+    footer .fw-bold { font-size: 1.5rem !important; display: flex; align-items: center; gap: 14px; }
+    footer .fw-bold img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #b9cee2; }
+    .social-links a {
+      color: #b9cee2; font-size: 1.8rem; transition: all 0.3s ease;
+      display: inline-block; position: relative;
+    }
+    .social-links a::after {
+      content: attr(href); position: absolute; bottom: -2.2rem; left: 50%;
+      transform: translateX(-50%); background: #111; color: #fff; font-size: 0.8rem;
+      padding: 4px 8px; border-radius: 4px; opacity: 0; pointer-events: none;
+      white-space: nowrap; transition: opacity 0.3s ease; font-family: 'JetBrains Mono', monospace;
+    }
+    .social-links a:hover { color: var(--py-yellow); transform: translateY(-4px); }
+    .social-links a:hover::after { opacity: 1; }
+
+    @media (max-width: 991px) {
+      .toc-sticky { position: static; max-height: none; }
+      .social-links a::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-manual sticky-top py-3">
+  <div class="container-fluid px-4">
+    <div class="d-flex align-items-center gap-3">
+      <!-- Botón Toggle Sidebar -->
+      <button class="btn btn-outline-primary d-flex align-items-center justify-content-center" id="sidebarToggleBtn" type="button" style="width: 40px; height: 40px; border-radius: 8px;">
+        <i class="bi bi-layout-sidebar"></i>
+      </button>
+      <a class="navbar-brand navbar-brand-manual m-0" href="#inicio">🐍 Manual&nbsp;Python</a>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navManual">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navManual">
+      <ul class="navbar-nav ms-auto gap-lg-3">
+        <li class="nav-item"><a class="nav-link nav-link-manual" href="#introduccion"><i class="bi bi-play-circle"></i> 1. Historia & Mercado</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-manual" href="#entorno"><i class="bi bi-terminal"></i> 2. Entorno (.venv)</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-manual" href="#fundamentos"><i class="bi bi-code-slash"></i> 3. Fundamentos (19 Temas)</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-manual" href="#analitica-visual"><i class="bi bi-pie-chart-fill"></i> 4. Analítica & Gráficos</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-manual" href="#bases-de-datos"><i class="bi bi-database"></i> 5. SQL Server</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-manual" href="#analisis-datos"><i class="bi bi-bar-chart-line"></i> 6. 4 Casos Finanzas</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-manual" href="#dashboard-final"><i class="bi bi-speedometer2"></i> 7. Dashboard Streamlit</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-link-manual dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dashboards PRO</a>
+          <ul class="dropdown-menu border-0 shadow">
+            <li><a class="dropdown-item" href="#dashboard-api">8. Monitor de Divisas (API)</a></li>
+            <li><a class="dropdown-item" href="#dashboard-nlp">9. NLP Sentimientos</a></li>
+            <li><a class="dropdown-item" href="#dashboard-geo">10. Rutas y GeoTracking</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+</nav>
+
+<!-- Sidebar Fijo Personalizado Completo -->
+<div id="sidebarMenu" class="custom-sidebar" style="position: fixed; top: 0; left: 0; width: 300px; height: 100vh; background: #ffffff; border-right: 1px solid var(--line, #e2e8f0); overflow-y: auto; z-index: 1060; transition: transform 0.3s ease; transform: translateX(0); box-shadow: 2px 0 15px rgba(0,0,0,0.05);">
+  <div class="p-3 border-bottom d-flex align-items-center justify-content-between sticky-top" style="background: #ffffff; z-index: 10;">
+    <h5 class="fw-bold m-0" style="font-family: 'Space Grotesk', sans-serif; color: var(--py-blue, #306998);">
+      <i class="bi bi-journal-code"></i> Menú Principal
+    </h5>
+    <button class="btn btn-sm btn-light" id="closeSidebarBtn" type="button"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="p-3 pb-5">
+    <div class="toc-group-title text-primary mt-0 fw-bold"><i class="bi bi-star-fill"></i> Módulos Principales</div>
+    <div class="toc-list" style="margin-bottom: 2rem;">
+      <a href="#inicio" class="d-block text-dark py-1"><i class="bi bi-house text-secondary"></i> Inicio</a>
+      <a href="#introduccion" class="d-block text-dark py-1"><i class="bi bi-play-circle text-secondary"></i> 1. Historia & Mercado</a>
+      <a href="#entorno" class="d-block text-dark py-1"><i class="bi bi-terminal text-secondary"></i> 2. Entorno (.venv)</a>
+    </div>
+
+    <div class="toc-group-title text-primary fw-bold"><i class="bi bi-code-slash"></i> 3. Fundamentos Python</div>
+    <!-- AQUI SE INYECTAN LOS 19 TEMAS -->
+    <div class="toc-list" id="tocList" style="border-left: 2px solid var(--line, #e2e8f0); padding-left: 10px; margin-left: 5px;"></div>
+    
+    <div class="toc-group-title text-primary mt-4 fw-bold"><i class="bi bi-pie-chart-fill"></i> Analítica Avanzada</div>
+    <div class="toc-list">
+      <a href="#analitica-visual" class="d-block text-dark py-1"><i class="bi bi-pie-chart-fill text-secondary"></i> 4. Analítica Visual</a>
+      <a href="#bases-de-datos" class="d-block text-dark py-1"><i class="bi bi-database text-secondary"></i> 5. SQL Server</a>
+      <a href="#analisis-datos" class="d-block text-dark py-1"><i class="bi bi-bar-chart-line text-secondary"></i> 6. 4 Casos Finanzas</a>
+      <a href="#dashboard-final" class="d-block text-dark py-1"><i class="bi bi-speedometer2 text-secondary"></i> 7. Dashboard Final</a>
+      <a href="#dashboard-api" class="d-block text-dark py-1"><i class="bi bi-globe text-secondary"></i> 8. Divisas (API)</a>
+      <a href="#dashboard-nlp" class="d-block text-dark py-1"><i class="bi bi-chat-text text-secondary"></i> 9. NLP Sentimientos</a>
+      <a href="#dashboard-geo" class="d-block text-dark py-1"><i class="bi bi-geo-alt text-secondary"></i> 10. GeoTracking Logística</a>
+    </div>
+  </div>
+</div>
+
+<!-- Contenedor general para el desplazamiento del sidebar -->
+<div id="mainWrapper" style="transition: margin-left 0.3s ease; margin-left: 300px;">
+
+<!-- HERO -->
+<header class="hero" id="inicio">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="eyebrow"><i class="bi bi-stars"></i> Módulo 01 · Masterclass Python Experience (120 min)</span>
+        <h1 class="mt-3">Manual de Python: de Cero a tu Primer Algoritmo</h1>
+        <p class="lead-soft mt-3">
+          Una arquitectura visual y profundamente técnica para dominar la programación. Incluye <strong class="kw-blue">fundamentos completos</strong>, <strong class="kw-yellow">análisis visual y gráficos avanzados</strong>, ingesta multifuente con <strong class="kw-green">Pandas</strong> y un <strong class="kw-rose">Dashboard interactivo en Streamlit</strong> para el análisis de riesgo de deuda, morosidad y NPS.
+        </p>
+        <div class="d-flex flex-wrap gap-2 mt-4">
+          <span class="badge-soft"><i class="fa-brands fa-python text-primary"></i> Python 3.12 / 3.14 Ready</span>
+          <span class="badge-soft"><i class="bi bi-graph-up-arrow text-success"></i> Top 1 Global (TIOBE)</span>
+          <span class="badge-soft"><i class="bi bi-award text-warning"></i> Autor: Ing. Juancito Peña</span>
+        </div>
+        <div class="d-flex gap-3 mt-4 flex-wrap">
+          <a href="#introduccion" class="btn btn-python">Comenzar Guía <i class="bi bi-arrow-down-short"></i></a>
+          <a href="#analitica-visual" class="btn btn-outline-manual">Explorar Analítica Visual <i class="bi bi-pie-chart-fill"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="terminal-title">python3 — masterclass_pro.py</span>
+          </div>
+          <div class="terminal-body" id="terminalBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 01 · INTRODUCCIÓN, HISTORIA Y MERCADO -->
+<section id="introduccion" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 01 · Fundamento & Contexto Global</span>
+      <h2 class="section-title">Historia de Python, Auge de las IA y Mercado Laboral</h2>
+      <p class="lead-soft mt-2">
+        Para entender por qué Python gobierna la industria del software moderna, debemos remontarnos a su diseño fundamental, su filosofía de simplicidad y cómo se convirtió en el motor supremo de la <strong class="kw-blue">Inteligencia Artificial</strong>.
+      </p>
+
+      <div class="row g-4 mt-3">
+        <div class="col-lg-6">
+          <div class="card-manual d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="d-flex gap-3">
+                <div class="icon-chip"><i class="bi bi-patch-question"></i></div>
+                <div><h4 class="h5 mb-1">¿Qué es Python?</h4></div>
+              </div>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo" class="img-heartbeat python-logo-intro">
+            </div>
+            <p class="mb-0">
+              Python es un lenguaje de programación de <strong class="kw-blue">alto nivel</strong>, <strong class="kw-blue">interpretado</strong> y de <strong class="kw-blue">propósito general</strong>. Es <strong>multiparadigma</strong> con un sistema de <strong>tipado dinámico y fuertemente tipado</strong> (no realiza conversiones silenciosas que corrompan los datos).
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-manual d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="d-flex gap-3">
+                <div class="icon-chip yellow"><i class="bi bi-person-badge"></i></div>
+                <div><h4 class="h5 mb-1">Guido van Rossum (1989-1991)</h4></div>
+              </div>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Guido-portrait-2014-drc.jpg" alt="Guido van Rossum" class="img-heartbeat guido-photo">
+            </div>
+            <p class="mb-0">
+              Ideado durante la Navidad de <strong>1989</strong> en el CWI de los Países Bajos y publicado en <strong>1991</strong>. Su filosofía rectora es el <strong>Zen de Python</strong>: <em>"Lo explícito es mejor que lo implícito; la legibilidad cuenta"</em>.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card-manual" style="border-left: 5px solid var(--accent-green);">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip green"><i class="bi bi-robot"></i></div>
+              <div><h4 class="h5 mb-1">El Rey Indiscutible de la Inteligencia Artificial</h4></div>
+            </div>
+            <p class="mb-0">
+              Modelos como <strong>GPT-4, Claude, Gemini y LLaMA</strong> se orquestan en Python. Las capas de abstracción matemática, manipulación de tensores y entrenamiento en GPU Nvidia residen en librerías nativas como <strong class="kw-green">PyTorch, TensorFlow, Hugging Face Transformers y LangChain</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card-manual">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div class="d-flex gap-3">
+                <div class="icon-chip yellow"><i class="bi bi-graph-up-arrow"></i></div>
+                <div>
+                  <h4 class="h5 mb-1">Línea de Carrera, Salarios y Demanda Laboral</h4>
+                  <div class="text-muted small">Python ocupa el <strong>Puesto #1 Mundial</strong> en el índice TIOBE y PYPL (2025/2026).</div>
+                </div>
+              </div>
+              <span class="eyebrow"><i class="bi bi-bar-chart-fill"></i> Proyección de Carrera</span>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-borderless table-seniority mb-0">
+                <thead>
+                  <tr>
+                    <th>Nivel (Seniority)</th>
+                    <th>Años Exp.</th>
+                    <th>Capacidad y Proyectos Típicos</th>
+                    <th>Salario Local (RD / LatAm)</th>
+                    <th>Salario Remoto (USD / Global)</th>
+                    <th>Demanda</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Trainee / Junior</strong></td>
+                    <td>0 a 2 años</td>
+                    <td>Automatización básica, Pandas, consultas SQL y consumo de endpoints.</td>
+                    <td>$40,000 - $70,000 DOP / mes</td>
+                    <td>$30,000 - $55,000 USD / año</td>
+                    <td><span class="badge-demand bg-info text-dark">Moderada (Competitiva)</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mid-Level (Semi-Sr)</strong></td>
+                    <td>2 a 5 años</td>
+                    <td>Backend con FastAPI, Pipelines ETL, Docker, dashboards y analítica avanzada.</td>
+                    <td>$80,000 - $160,000 DOP / mes</td>
+                    <td>$65,000 - $95,000 USD / año</td>
+                    <td><span class="badge-demand bg-primary text-white">Muy Alta (Perfil Estrella)</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Senior / Specialist</strong></td>
+                    <td>5+ años</td>
+                    <td>Modelos de Machine Learning, MLOps, PySpark, optimización y arquitectura.</td>
+                    <td>$180,000 - $350,000+ DOP / mes</td>
+                    <td>$100,000 - $165,000+ USD / año</td>
+                    <td><span class="badge-demand bg-success text-white">Crítica (Escasez Global)</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tech Lead / Architect</strong></td>
+                    <td>8+ años</td>
+                    <td>Estrategia tecnológica, diseño de plataformas de datos enterprise y seguridad.</td>
+                    <td>$350,000+ DOP / mes</td>
+                    <td>$150,000 - $240,000+ USD / año</td>
+                    <td><span class="badge-demand" style="background:#1E2530; color:#F5C518;">Exclusiva (C-Level)</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- 02 · INSTALACIÓN Y ENTORNO VIRTUAL (.VENV) -->
+<section id="entorno" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 02 · Preparación del Entorno Aislado</span>
+      <h2 class="section-title">Instalación y Configuración del Entorno Seguro (.venv)</h2>
+      <p class="lead-soft mt-2">
+        La regla de oro del ingeniero profesional es la <strong>segregación de dependencias</strong>. Nunca instales paquetes de terceros directamente en el Python del sistema operativo; utiliza siempre un <strong class="kw-blue">Virtual Environment (.venv)</strong>.
+      </p>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-6">
+          <div class="card-manual d-flex flex-column h-100">
+            <div class="d-flex gap-3 mb-3">
+              <div class="icon-chip yellow"><i class="bi bi-filetype-py"></i></div>
+              <div><h4 class="h5 mb-1">1. Descargar e Instalar Python</h4></div>
+            </div>
+            <p>Descarga la versión estable oficial desde <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a>.</p>
+            <div class="alert alert-warning py-2 small">
+              <i class="bi bi-exclamation-triangle-fill"></i> <strong>¡CRÍTICO EN WINDOWS!</strong> Marca la casilla <code>"Add python.exe to PATH"</code> al inicio de la instalación.
+            </div>
+            <div class="env-img-wrapper mt-auto">
+              <img src="https://tutorial.recursospython.com/img/instalar-python.png" alt="Asegúrate de marcar Add Python to PATH" class="env-img env-img-contain">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-manual d-flex flex-column h-100">
+            <div class="d-flex gap-3 mb-3">
+              <div class="icon-chip"><i class="bi bi-code-square"></i></div>
+              <div><h4 class="h5 mb-1">2. Visual Studio Code & Extensión</h4></div>
+            </div>
+            <p>Descarga el editor desde <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a> e instala la extensión oficial de <strong>Microsoft Python</strong> presionando <code>Ctrl+Shift+X</code>.</p>
+            <div class="env-img-wrapper mt-auto">
+              <img src="https://code.visualstudio.com/assets/docs/editing/userinterface/hero.png" alt="Interfaz de VS Code" class="env-img">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card-manual">
+            <h4 class="h5 mb-2"><i class="bi bi-terminal text-primary"></i> Protocolo de Consola: Creación y Activación de Entornos</h4>
+            <p class="small text-muted mb-3">Ejecuta estas instrucciones en la terminal dentro de la carpeta de tu proyecto:</p>
+            <pre><code class="language-bash"># 1. Crear el entorno virtual en la subcarpeta .venv
+python -m venv .venv
+
+# 2. Activar el entorno según tu sistema operativo:
+# --- Windows (PowerShell):
+.venv\Scripts\Activate.ps1
+# --- Windows (CMD tradicional):
+.venv\Scripts\activate.bat
+# --- macOS / Linux (Bash o Zsh):
+source .venv/bin/activate
+
+# 3. Instalar dependencias analíticas:
+pip install pandas matplotlib streamlit openpyxl requests pyodbc</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- 03 · FUNDAMENTOS TÉCNICOS (19 TEMAS COMPLETOS) -->
+<section id="fundamentos" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 03 · Fundamentos de Programación (Edición Completa)</span>
+      <h2 class="section-title">El Diccionario Definitivo de la Sintaxis Python</h2>
+      <p class="lead-soft mt-2">
+        19 temas indispensables: desde los tipos primitivos en memoria RAM hasta la Programación Orientada a Objetos y el consumo de APIs web, con <strong class="kw-blue">3 formas y ejemplos reales</strong> por cada concepto.
+      </p>
+
+      <div class="row g-4 mt-3">
+        <div class="col-12">
+          <div id="topics-container"><!-- Generado dinámicamente por JavaScript --></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- 04 · ANALÍTICA, VISUALIZACIÓN Y STORYTELLING DE DATOS (NUEVA SECCIÓN EXPANDIDA) -->
+<section id="analitica-visual" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 04 · Visualización, Estadísticas & Storytelling</span>
+      <h2 class="section-title">Ciencia de Datos Aplicada: Análisis Estadístico y Visual</h2>
+      <p class="lead-soft mt-2">
+        La verdadera potencia de Python en los negocios radica en transformar datos tabulares en <strong class="kw-blue">narrativas visuales convincentes (Storytelling)</strong>. Exploraremos 6 casos reales con gráficos de dispersión, medias móviles, correlaciones y distribuciones estadísticas con <code>pandas</code> y <code>matplotlib</code>.
+      </p>
+
+      <div class="row g-4 mt-3">
+        
+        <!-- Caso 1: Diagrama de Pareto 80/20 -->
+        <div class="col-lg-6">
+          <div class="card-manual">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip"><i class="bi bi-bar-chart-steps"></i></div>
+              <div><h4 class="h5 mb-1">1. Diagrama de Pareto Combinado (80/20)</h4></div>
+            </div>
+            <p class="small text-muted mb-2">
+              <strong>Contexto de Negocio:</strong> Identifica el 20% de las líneas de producto que generan el 80% de la facturación bruta. Se combina un gráfico de barras primario con una curva acumulativa en un segundo eje Y.
+            </p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.DataFrame({
+    "Producto": ["Software ERP", "Servidores Cloud", "Consultoría IA", "Soporte Anual", "Hardware", "Licencias Office"],
+    "Facturacion": [120000, 85000, 62000, 24000, 11000, 4500]
+}).sort_values(by="Facturacion", ascending=False)
+
+# Cálculo de porcentaje acumulado
+df["Porc_Acumulado"] = (df["Facturacion"].cumsum() / df["Facturacion"].sum()) * 100
+
+fig, ax1 = plt.subplots(figsize=(7, 3.8))
+ax1.bar(df["Producto"], df["Facturacion"], color="#2F6D9C")
+ax1.set_ylabel("Facturación (USD)", color="#2F6D9C")
+ax1.tick_params(axis='x', rotation=30)
+
+# Eje secundario para la línea de Pareto
+ax2 = ax1.twinx()
+ax2.plot(df["Producto"], df["Porc_Acumulado"], color="#F5C518", marker="o", linewidth=2)
+ax2.axhline(80, color="crimson", linestyle="--", alpha=0.7) # Línea umbral 80%
+ax2.set_ylabel("% Acumulado", color="#F5C518")
+
+plt.title("Curva de Pareto 80/20 de Facturación")
+plt.tight_layout()
+plt.savefig("pareto_facturacion.png")</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 2: Media Móvil y Suavizado de Series Temporales -->
+        <div class="col-lg-6">
+          <div class="card-manual">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip yellow"><i class="bi bi-graph-up"></i></div>
+              <div><h4 class="h5 mb-1">2. Tendencias y Media Móvil (SMA)</h4></div>
+            </div>
+            <p class="small text-muted mb-2">
+              <strong>Contexto de Negocio:</strong> Las ventas diarias fluctúan por estacionalidad. Usamos <code>rolling(window=3).mean()</code> para suavizar el ruido temporal y detectar la dirección real de la demanda.
+            </p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+df_temporal = pd.DataFrame({
+    "Semana": [f"Sem {i}" for i in range(1, 11)],
+    "Ventas_Reales": [1200, 1850, 1400, 2200, 2100, 2900, 2600, 3400, 3100, 3900]
+})
+
+# Cálculo de la media móvil de 3 periodos
+df_temporal["Media_Movil_3P"] = df_temporal["Ventas_Reales"].rolling(window=3).mean()
+
+plt.figure(figsize=(7, 3.8))
+plt.plot(df_temporal["Semana"], df_temporal["Ventas_Reales"], label="Ventas Reales", marker="o", color="#8793A8", linestyle=":")
+plt.plot(df_temporal["Semana"], df_temporal["Media_Movil_3P"], label="Tendencia Suavizada (SMA-3)", color="#10B981", linewidth=2.5)
+
+plt.title("Evolución de Demanda y Suavizado Móvil")
+plt.ylabel("Unidades Vendidas")
+plt.legend()
+plt.grid(True, linestyle="--", alpha=0.4)
+plt.tight_layout()
+plt.savefig("tendencia_media_movil.png")</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 3: Dispersión y Cuadrantes de Riesgo Crediticio -->
+        <div class="col-lg-6">
+          <div class="card-manual">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip green"><i class="bi bi-grid-1x2"></i></div>
+              <div><h4 class="h5 mb-1">3. Matriz de Dispersión y Riesgo Crediticio</h4></div>
+            </div>
+            <p class="small text-muted mb-2">
+              <strong>Contexto de Negocio:</strong> Correlaciona el Ratio de Endeudamiento (DTI) contra el Puntaje Crediticio (FICO) para dividir a los solicitantes en cuadrantes de riesgo automático.
+            </p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+df_riesgo = pd.DataFrame({
+    "Cliente": ["A", "B", "C", "D", "E", "F", "G"],
+    "Score_FICO": [780, 620, 710, 580, 810, 640, 750],
+    "Ratio_DTI": [22.5, 48.0, 35.0, 55.2, 18.0, 42.0, 28.5]
+})
+
+plt.figure(figsize=(7, 3.8))
+plt.scatter(df_riesgo["Ratio_DTI"], df_riesgo["Score_FICO"], color="#2F6D9C", s=90, edgecolors="#1E4C72", zorder=3)
+
+# Líneas de umbral normativo
+plt.axvline(40, color="orange", linestyle="--", label="Límite DTI (40%)")
+plt.axhline(700, color="green", linestyle="--", label="Umbral Seguro FICO (700)")
+
+plt.title("Cuadrantes de Riesgo: Score FICO vs Endeudamiento")
+plt.xlabel("Ratio DTI (%)")
+plt.ylabel("Score FICO")
+plt.legend(loc="lower left")
+plt.grid(True, linestyle="--", alpha=0.3)
+plt.tight_layout()
+plt.savefig("matriz_riesgo.png")</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 4: Detección de Outliers con Boxplots (Diagramas de Caja) -->
+        <div class="col-lg-6">
+          <div class="card-manual">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip"><i class="bi bi-box"></i></div>
+              <div><h4 class="h5 mb-1">4. Detección de Anomalías con Boxplots</h4></div>
+            </div>
+            <p class="small text-muted mb-2">
+              <strong>Contexto de Negocio:</strong> Auditoría de montos de transacciones para detectar atípicos (*outliers*) que superan el Rango Intercuartílico (IQR), señalando posible fraude o error operativo.
+            </p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# Transacciones con atípicos intencionales ($12,000 y $15,000)
+transacciones = [120, 150, 180, 200, 210, 230, 250, 270, 310, 340, 400, 12000, 15000]
+df_tx = pd.DataFrame({"Monto": transacciones})
+
+# Cálculo estadístico del Rango Intercuartílico (IQR)
+q1 = df_tx["Monto"].quantile(0.25)
+q3 = df_tx["Monto"].quantile(0.75)
+iqr = q3 - q1
+limite_superior = q3 + (1.5 * iqr)
+
+plt.figure(figsize=(7, 3.8))
+plt.boxplot(df_tx["Monto"], vert=False, patch_artist=True, boxprops=dict(facecolor="#EAF3FB", color="#2F6D9C"))
+plt.title("Auditoría de Montos: Detección de Outliers (IQR)")
+plt.xlabel("Monto en USD")
+plt.tight_layout()
+plt.savefig("box_outliers.png")
+print(f"Límite estadístico sin anomalías: USD ${limite_superior:,.2f}")</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 5: Desviación Presupuestaria (Budget vs Actual) -->
+        <div class="col-lg-6">
+          <div class="card-manual">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip yellow"><i class="bi bi-bar-chart-line"></i></div>
+              <div><h4 class="h5 mb-1">5. Análisis de Variación (Meta vs Real)</h4></div>
+            </div>
+            <p class="small text-muted mb-2">
+              <strong>Contexto de Negocio:</strong> Muestra la brecha financiera exacta entre el presupuesto aprobado y el gasto ejecutado, empleando colores condicionales (verde para ahorro, rojo para sobrecosto).
+            </p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+df_variacion = pd.DataFrame({
+    "Departamento": ["TI", "Marketing", "Operaciones", "Ventas", "Legal"],
+    "Presupuesto": [50000, 30000, 45000, 25000, 15000],
+    "Gasto_Real": [46000, 38000, 42000, 29000, 14000]
+})
+
+# Desviación: Negativo indica sobrecosto respecto a la meta
+df_variacion["Desviacion"] = df_variacion["Presupuesto"] - df_variacion["Gasto_Real"]
+colores = ["#10B981" if x >= 0 else "#EF4444" for x in df_variacion["Desviacion"]]
+
+plt.figure(figsize=(7, 3.8))
+plt.barh(df_variacion["Departamento"], df_variacion["Desviacion"], color=colores)
+plt.axvline(0, color="black", linewidth=1)
+plt.title("Variación Presupuestaria (Superávit vs Déficit)")
+plt.xlabel("Diferencia Financiera (USD)")
+plt.tight_layout()
+plt.savefig("variacion_presupuesto.png")</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 6: Matriz de Correlación Cruzada -->
+        <div class="col-lg-6">
+          <div class="card-manual">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip green"><i class="bi bi-bounding-box-circles"></i></div>
+              <div><h4 class="h5 mb-1">6. Matriz de Correlación Multivariable</h4></div>
+            </div>
+            <p class="small text-muted mb-2">
+              <strong>Contexto de Negocio:</strong> Examina cómo interactúan múltiples variables financieras simultáneamente (Ingresos, Deuda, Edad y Score) calculando el coeficiente Pearson (-1 a +1).
+            </p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+df_multivar = pd.DataFrame({
+    "Ingresos": [3200, 5500, 1800, 7200, 4100, 6300],
+    "Deuda_Total": [800, 1200, 950, 600, 1100, 750],
+    "Edad": [28, 45, 23, 52, 36, 41],
+    "Score": [710, 780, 590, 810, 670, 740]
+})
+
+matriz_corr = df_multivar.corr()
+
+fig, ax = plt.subplots(figsize=(6.5, 3.8))
+cax = ax.matshow(matriz_corr, cmap="coolwarm", vmin=-1, vmax=1)
+fig.colorbar(cax)
+
+ax.set_xticks(range(len(matriz_corr.columns)))
+ax.set_yticks(range(len(matriz_corr.columns)))
+ax.set_xticklabels(matriz_corr.columns, rotation=30)
+ax.set_yticklabels(matriz_corr.columns)
+
+# Anotación numérica dentro de cada celda
+for i in range(len(matriz_corr.columns)):
+    for j in range(len(matriz_corr.columns)):
+        ax.text(j, i, f"{matriz_corr.iloc[i, j]:.2f}", ha="center", va="center", color="black", fontsize=9)
+
+plt.title("Matriz de Correlación Financiera", pad=20)
+plt.tight_layout()
+plt.savefig("matriz_correlacion.png")</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- 05 · BASES DE DATOS Y SQL SERVER -->
+<section id="bases-de-datos" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 05 · Data Engineering & SQL</span>
+      <h2 class="section-title">SQL Server y Python: Conexión Empresarial</h2>
+      <p class="lead-soft mt-2">
+        La persistencia de información corporativa se fundamenta en bases de datos relacionales. Aprende los fundamentos universales de SQL y cómo conectarlos con Python para análisis predictivo.
+      </p>
+
+      <!-- TEORÍA SQL -->
+      <div class="row g-4 mt-4">
+        <div class="col-12">
+          <h3 class="h4 mb-3 fw-bold text-primary"><i class="bi bi-book"></i> Fundamentos Universales de Bases de Datos</h3>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-manual h-100">
+            <h5 class="fw-bold"><i class="bi bi-hdd-network text-info"></i> ¿Por qué aprender SQL?</h5>
+            <p class="small text-secondary">Structured Query Language (SQL) es el estándar absoluto de la industria desde 1970. Ninguna Inteligencia Artificial o framework moderno ha podido reemplazar su precisión matemática para extraer, filtrar y cruzar millones de registros en milisegundos.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-manual h-100">
+            <h5 class="fw-bold"><i class="bi bi-diagram-3 text-warning"></i> Modelos de Datos</h5>
+            <p class="small text-secondary">
+              <strong>1. Relacionales (SQL):</strong> Datos estructurados en tablas vinculadas por llaves primarias y foráneas (SQL Server, PostgreSQL, MySQL).<br>
+              <strong>2. NoSQL:</strong> Documentos JSON flexibles para alto tráfico sin esquema estricto (MongoDB, Firebase).
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-manual h-100">
+            <h5 class="fw-bold"><i class="bi bi-microsoft text-primary"></i> Microsoft SQL Server</h5>
+            <p class="small text-secondary">Es uno de los motores relacionales (RDBMS) corporativos más potentes y seguros del mercado (junto a Oracle). Su lenguaje extendido se llama T-SQL (Transact-SQL) y se administra gráficamente mediante SSMS (SQL Server Management Studio).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBLENGUAJES SQL -->
+      <div class="row g-4 mt-2">
+        <div class="col-12">
+          <div class="card-manual">
+            <h5 class="fw-bold mb-3"><i class="bi bi-funnel-fill text-success"></i> Los 5 Sublenguajes de SQL</h5>
+            <div class="table-responsive">
+              <table class="table table-hover table-sm">
+                <thead class="table-light">
+                  <tr><th>Sublenguaje</th><th>Propósito</th><th>Comandos Principales</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>DDL (Data Definition)</strong></td><td>Define y altera las estructuras físicas de la base de datos.</td><td><code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code></td></tr>
+                  <tr><td><strong>DML (Data Manipulation)</strong></td><td>Modifica los datos vivos dentro de las tablas.</td><td><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code></td></tr>
+                  <tr><td><strong>DQL (Data Query)</strong></td><td>Extrae información (el comando más usado del mundo).</td><td><code>SELECT</code></td></tr>
+                  <tr><td><strong>TCL (Transaction Control)</strong></td><td>Maneja transacciones (todo o nada) para mantener consistencia.</td><td><code>COMMIT</code>, <code>ROLLBACK</code></td></tr>
+                  <tr><td><strong>DCL (Data Control)</strong></td><td>Gestiona la seguridad y permisos de los usuarios.</td><td><code>GRANT</code>, <code>REVOKE</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCRIPT SQL MAESTRO -->
+      <div class="row g-4 mt-4">
+        <div class="col-12">
+          <h3 class="h4 mb-3 fw-bold text-primary"><i class="bi bi-database-add"></i> Script Maestro: Creación de BD Finanzas (SSMS)</h3>
+          <p class="small text-secondary">
+            <strong>Instrucciones para el usuario local:</strong>
+            Abre tu <strong>SQL Server Management Studio (SSMS)</strong>, conéctate a tu servidor (ej. <code>localhost</code> o <code>192.168.x.x</code>), haz clic en <strong>New Query (Nueva Consulta)</strong>, pega este script y presiona <kbd>F5</kbd> o <strong>Execute</strong>.
+          </p>
+          <div class="card-manual">
+            <pre><code class="language-sql">-- =======================================================
+-- SCRIPT DE CREACIÓN DE BASE DE DATOS Y TABLAS (T-SQL)
+-- =======================================================
+
+-- 1. DDL: Crear Base de Datos
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'FinanzasDB')
+BEGIN
+    CREATE DATABASE FinanzasDB;
+END
+GO
+USE FinanzasDB;
+GO
+
+-- 2. DDL: Crear Tablas
+IF OBJECT_ID('Prestamos', 'U') IS NOT NULL DROP TABLE Prestamos;
+IF OBJECT_ID('Clientes', 'U') IS NOT NULL DROP TABLE Clientes;
+
+CREATE TABLE Clientes (
+    ClienteID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    ScoreFICO INT NOT NULL,
+    FechaRegistro DATE DEFAULT GETDATE()
+);
+
+CREATE TABLE Prestamos (
+    PrestamoID INT IDENTITY(1,1) PRIMARY KEY,
+    ClienteID INT FOREIGN KEY REFERENCES Clientes(ClienteID),
+    Monto DECIMAL(18,2) NOT NULL,
+    TasaInteres DECIMAL(5,2) NOT NULL,
+    Estado VARCHAR(20) DEFAULT 'Activo'
+);
+GO
+
+-- 3. DML: Insertar Registros de Prueba (AMPLIADO)
+INSERT INTO Clientes (Nombre, ScoreFICO, FechaRegistro) VALUES 
+('Empresa Alpha', 750, '2022-01-15'),
+('Corporación Beta', 620, '2022-03-10'),
+('Industrias Gamma', 810, '2021-11-05'),
+('Soluciones Delta S.A.', 680, '2022-06-20'),
+('Logística Epsilon', 590, '2023-01-12'),
+('Grupo Financiero Zeta', 830, '2021-08-19'),
+('Construcciones Eta', 540, '2023-02-28'),
+('Distribuidora Theta', 710, '2022-09-14'),
+('Tecnología Iota', 790, '2022-12-01'),
+('Alimentos Kappa', 640, '2023-03-15'),
+('Textil Lambda', 580, '2023-04-10'),
+('Servicios Médicos Mu', 725, '2022-05-18'),
+('Farmacéutica Nu', 815, '2021-10-22'),
+('Minera Xi', 660, '2022-07-30'),
+('Consultores Ómicron', 775, '2023-05-05');
+
+INSERT INTO Prestamos (ClienteID, Monto, TasaInteres, Estado) VALUES 
+-- Préstamos Cliente 1 (Alpha)
+(1, 150000.00, 8.5, 'Activo'),
+(1, 50000.00, 7.0, 'Pagado'),
+(1, 120000.00, 8.0, 'Activo'),
+
+-- Préstamos Cliente 2 (Beta)
+(2, 300000.00, 12.0, 'Mora'),
+(2, 80000.00, 13.5, 'Pagado'),
+
+-- Préstamos Cliente 3 (Gamma)
+(3, 850000.00, 6.5, 'Activo'),
+(3, 400000.00, 6.0, 'Pagado'),
+
+-- Préstamos Cliente 4 (Delta)
+(4, 210000.00, 9.5, 'Activo'),
+(4, 95000.00, 10.0, 'Pagado'),
+
+-- Préstamos Cliente 5 (Epsilon - Perfil de riesgo alto)
+(5, 75000.00, 15.0, 'Mora'),
+(5, 50000.00, 16.5, 'Mora'),
+
+-- Préstamos Cliente 6 (Zeta - Excelente perfil)
+(6, 1200000.00, 5.5, 'Activo'),
+(6, 500000.00, 5.8, 'Activo'),
+
+-- Préstamos Cliente 7 (Eta - Score bajo)
+(7, 180000.00, 18.0, 'Mora'),
+
+-- Préstamos Cliente 8 (Theta)
+(8, 250000.00, 8.8, 'Activo'),
+(8, 130000.00, 9.2, 'Pagado'),
+
+-- Préstamos Cliente 9 (Iota)
+(9, 620000.00, 7.2, 'Activo'),
+
+-- Préstamos Cliente 10 (Kappa)
+(10, 110000.00, 11.5, 'Activo'),
+(10, 90000.00, 12.0, 'Cancelado'),
+
+-- Préstamos Cliente 11 (Lambda)
+(11, 140000.00, 16.0, 'Mora'),
+
+-- Préstamos Cliente 12 (Mu)
+(12, 310000.00, 8.2, 'Activo'),
+
+-- Préstamos Cliente 13 (Nu - Excelente perfil)
+(13, 950000.00, 6.2, 'Activo'),
+(13, 300000.00, 6.0, 'Pagado'),
+
+-- Préstamos Cliente 14 (Xi)
+(14, 450000.00, 10.5, 'Activo'),
+
+-- Préstamos Cliente 15 (Ómicron)
+(15, 280000.00, 7.8, 'Activo'),
+(15, 70000.00, 8.0, 'Pagado');
+GO
+
+-- 4. DDL/DQL: Crear Vista Analítica con JOIN
+IF OBJECT_ID('vw_ReporteRiesgo', 'V') IS NOT NULL DROP VIEW vw_ReporteRiesgo;
+GO
+CREATE VIEW vw_ReporteRiesgo AS
+SELECT 
+    c.Nombre AS Cliente,
+    c.ScoreFICO,
+    p.PrestamoID,
+    p.Monto,
+    p.TasaInteres,
+    p.Estado,
+    CAST((p.Monto * (p.TasaInteres / 100.0)) AS DECIMAL(18,2)) AS InteresAnualEstimado
+FROM Clientes c
+INNER JOIN Prestamos p ON c.ClienteID = p.ClienteID;
+GO
+
+-- 5. DQL: Probar la vista
+SELECT * FROM vw_ReporteRiesgo ORDER BY ScoreFICO DESC;
+GO</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- EJECUCIÓN EN PYTHON LOCAL -->
+      <div class="row g-4 mt-4">
+        <div class="col-12">
+          <h3 class="h4 mb-3 fw-bold text-primary"><i class="bi bi-pc-display"></i> Conectando Python a SQL Server (En tu VS Code local)</h3>
+          
+          <div class="alert alert-info border-0 shadow-sm" role="alert" style="background-color: rgba(13, 110, 253, 0.05);">
+            <h5 class="alert-heading fw-bold"><i class="bi bi-tools"></i> Requisitos Previos (VS Code)</h5>
+            <p class="mb-2 text-secondary">Los navegadores web bloquean las conexiones a bases de datos locales por seguridad. Para correr estos scripts en tu computadora, sigue estos pasos en la terminal de tu VS Code:</p>
+            <ol class="text-secondary mb-0">
+              <li><strong>Activa tu entorno virtual</strong> (ej. <code>.venv\Scripts\activate</code>).</li>
+              <li><strong>Instala las librerías:</strong> Ejecuta <code>pip install pyodbc pandas matplotlib</code>.</li>
+              <li><strong>Verifica el Driver de Windows:</strong> Asegúrate de tener instalado el <strong>ODBC Driver 17 for SQL Server</strong> (usualmente viene instalado con SSMS).</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <h4 class="h5 mb-2"><i class="bi bi-shield-check text-success"></i> 1. Inserción Segura (Anti SQL-Injection)</h4>
+            <pre><code class="language-python">import pyodbc
+
+# Cambia localhost por la IP de tu servidor (ej. 192.168.2.37)
+conn_str = r"DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=FinanzasDB;Trusted_Connection=yes;"
+conexion = pyodbc.connect(conn_str)
+cursor = conexion.cursor()
+
+# DML: Insertar de manera segura usando parámetros '?'
+query = "INSERT INTO Clientes (Nombre, ScoreFICO) VALUES (?, ?)"
+cursor.execute(query, ("Distribuidora Delta", 690))
+conexion.commit() # TCL: Guardar transacción
+
+print("Registro insertado correctamente.")
+conexion.close()</code></pre>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <h4 class="h5 mb-2"><i class="bi bi-bar-chart-fill text-warning"></i> 2. Análisis Básico: Exposición por Estado</h4>
+            <pre><code class="language-python">import pyodbc
+import pandas as pd
+import matplotlib.pyplot as plt
+
+conn = pyodbc.connect(r"DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=FinanzasDB;Trusted_Connection=yes;")
+
+# Extraer datos de la Vista
+df = pd.read_sql("SELECT * FROM vw_ReporteRiesgo", conn)
+conn.close()
+
+# Graficar Montos agrupados por Estado (Activo, Mora, Pagado)
+resumen = df.groupby('Estado')['Monto'].sum()
+
+plt.figure(figsize=(6, 4))
+resumen.plot(kind='bar', color=['#28a745', '#dc3545', '#ffc107', '#17a2b8'])
+plt.title("Exposición de Cartera por Estado (SQL)")
+plt.ylabel("Monto Total ($)")
+plt.xticks(rotation=0)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <h4 class="h5 mb-2"><i class="bi bi-graph-up text-danger"></i> 3. Correlación: FICO vs Tasa de Interés</h4>
+            <pre><code class="language-python">import pyodbc
+import pandas as pd
+import matplotlib.pyplot as plt
+
+conn = pyodbc.connect(r"DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=FinanzasDB;Trusted_Connection=yes;")
+
+# Extraer datos puros
+df = pd.read_sql("SELECT ScoreFICO, TasaInteres FROM vw_ReporteRiesgo", conn)
+conn.close()
+
+# Gráfico de Dispersión (Scatter Plot)
+plt.figure(figsize=(6, 4))
+plt.scatter(df['ScoreFICO'], df['TasaInteres'], color='#dc3545', alpha=0.7, s=100)
+plt.title("Riesgo vs Recompensa: FICO vs Tasa")
+plt.xlabel("Score FICO (Puntaje de Crédito)")
+plt.ylabel("Tasa de Interés Asignada (%)")
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <h4 class="h5 mb-2"><i class="bi bi-pie-chart-fill text-info"></i> 4. Top 5 Clientes con Mayor Deuda</h4>
+            <pre><code class="language-python">import pyodbc
+import pandas as pd
+import matplotlib.pyplot as plt
+
+conn = pyodbc.connect(r"DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=FinanzasDB;Trusted_Connection=yes;")
+
+# SQL Avanzado: Filtrar y ordenar desde el propio motor
+query = """
+SELECT TOP 5 Cliente, SUM(Monto) as TotalDeuda 
+FROM vw_ReporteRiesgo 
+GROUP BY Cliente 
+ORDER BY TotalDeuda DESC
+"""
+df_top = pd.read_sql(query, conn)
+conn.close()
+
+# Gráfico de Pastel (Pie Chart)
+plt.figure(figsize=(6, 4))
+plt.pie(df_top['TotalDeuda'], labels=df_top['Cliente'], autopct='%1.1f%%', startangle=140, colors=plt.cm.Paired.colors)
+plt.title("Top 5 Clientes (Concentración de Cartera)")
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <h4 class="h5 mb-2"><i class="bi bi-activity text-success"></i> 5. Evolución Histórica de Préstamos</h4>
+            <pre><code class="language-python">import pyodbc
+import pandas as pd
+import matplotlib.pyplot as plt
+
+conn = pyodbc.connect(r"DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=FinanzasDB;Trusted_Connection=yes;")
+
+# SQL con JOIN y Agrupación por Fechas
+query = """
+SELECT c.FechaRegistro, SUM(p.Monto) as VolumenPrestado
+FROM Clientes c
+INNER JOIN Prestamos p ON c.ClienteID = p.ClienteID
+GROUP BY c.FechaRegistro
+ORDER BY c.FechaRegistro
+"""
+df_time = pd.read_sql(query, conn)
+conn.close()
+
+# Gráfico de Líneas de Tendencia
+plt.figure(figsize=(6, 4))
+plt.plot(df_time['FechaRegistro'], df_time['VolumenPrestado'], marker='o', color='#28a745', linewidth=2)
+plt.title("Volumen de Préstamos a lo largo del tiempo")
+plt.xlabel("Fecha de Registro del Cliente")
+plt.ylabel("Volumen Aprobado ($)")
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <h4 class="h5 mb-2"><i class="bi bi-bar-chart-steps text-primary"></i> 6. Distribución de Tasa de Interés</h4>
+            <pre><code class="language-python">import pyodbc
+import pandas as pd
+import matplotlib.pyplot as plt
+
+conn = pyodbc.connect(r"DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=FinanzasDB;Trusted_Connection=yes;")
+
+df_hist = pd.read_sql("SELECT TasaInteres FROM Prestamos", conn)
+conn.close()
+
+# Histograma para ver la frecuencia de tasas asignadas
+plt.figure(figsize=(6, 4))
+plt.hist(df_hist['TasaInteres'], bins=8, color='#007bff', edgecolor='black', alpha=0.7)
+plt.title("Distribución de Tasas de Interés")
+plt.xlabel("Rango de Tasa de Interés (%)")
+plt.ylabel("Cantidad de Préstamos")
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- 06 · DATA SCIENCE, ETL Y 4 CASOS DE NEGOCIO -->
+<section id="analisis-datos" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 06 · Analítica Empresarial & Ingesta Multifuente</span>
+      <h2 class="section-title">Análisis de Datos: 4 Casos de Negocio en Finanzas</h2>
+      <p class="lead-soft mt-2">
+        El análisis de datos transforma tablas crudas en decisiones ejecutivas de alto impacto mediante la ingesta desde <strong class="kw-blue">Memoria</strong>, <strong class="kw-yellow">CSV</strong>, <strong class="kw-green">Excel</strong>, <strong class="kw-rose">APIs REST</strong> y motores <strong class="kw-blue">SQL</strong>.
+      </p>
+
+      <div class="row g-4 mt-3">
+
+        <!-- Caso 1: Ventas y Pareto -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip"><i class="bi bi-cash-stack"></i></div>
+              <div><h4 class="h5 mb-1">1. Ventas & Principio de Pareto (80/20)</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> El 80% de los ingresos de una empresa suele provenir del 20% de sus clientes o productos. Identificar este top 20% es crucial para focalizar estrategias de marketing y soporte.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Se ingesta una base de datos ampliada de ventas por producto, se calcula el peso porcentual acumulado, y se grafica la curva de Pareto para identificar instantáneamente los productos estrella.</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Ingesta de Datos Ampliada
+df = pd.DataFrame({
+    "Producto": ["Software ERP", "Consultoría", "Soporte Anual", "Hardware", "Capacitación", "Licencias", "Cloud Storage"],
+    "Ingresos": [450000, 280000, 150000, 80000, 50000, 25000, 15000]
+})
+
+# 2. Análisis y Cálculo Pareto
+df = df.sort_values(by="Ingresos", ascending=False)
+df["Porcentaje"] = (df["Ingresos"] / df["Ingresos"].sum()) * 100
+df["Acumulado"] = df["Porcentaje"].cumsum()
+
+# 3. Visualización Híbrida (Barras + Línea)
+fig, ax1 = plt.subplots(figsize=(7, 4))
+ax1.bar(df["Producto"], df["Ingresos"], color="#2F6D9C")
+ax1.set_ylabel("Ingresos ($)", color="#2F6D9C")
+ax1.tick_params(axis='x', rotation=45)
+
+ax2 = ax1.twinx()
+ax2.plot(df["Producto"], df["Acumulado"], color="#dc3545", marker="D", ms=5, linewidth=2)
+ax2.set_ylabel("Acumulado (%)", color="#dc3545")
+ax2.axhline(80, color="orange", linestyle="dashed", alpha=0.7)
+
+plt.title("Análisis de Pareto: Identificando el Core Business")
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 2: Cuentas por Cobrar Aging -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip yellow"><i class="bi bi-hourglass-split"></i></div>
+              <div><h4 class="h5 mb-1">2. Cuentas por Cobrar (Aging / Morosidad)</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> La salud financiera depende de la liquidez. Clasificar las facturas no pagadas por su antigüedad ("Aging") permite a cobranzas priorizar esfuerzos.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Clasificación algorítmica de 10 facturas en tramos de mora (0-30, 31-60, 61-90, +90) y visualización en un gráfico de pastel para evaluar la exposición a deuda tóxica.</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Función Heurística
+def categorizar_mora(dias):
+    if dias <= 30: return "0-30 días (Sano)"
+    elif dias <= 60: return "31-60 días (Riesgo Leve)"
+    elif dias <= 90: return "61-90 días (Riesgo Medio)"
+    return "+90 días (Crítico)"
+
+# 2. Generación de Data Sintética Realista
+datos = {"Factura": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110], 
+         "Monto": [1500, 3200, 800, 4500, 1200, 5000, 300, 950, 4200, 600],
+         "DiasAtraso": [5, 45, 12, 110, 25, 65, 80, 5, 95, 40]}
+df_cxc = pd.DataFrame(datos)
+
+# 3. Transformación (ETL)
+df_cxc["Tramo"] = df_cxc["DiasAtraso"].apply(categorizar_mora)
+resumen = df_cxc.groupby("Tramo")["Monto"].sum()
+
+# 4. Gráfico Analítico
+colores = ['#28a745', '#ffc107', '#fd7e14', '#dc3545']
+plt.figure(figsize=(6, 4))
+plt.pie(resumen, labels=resumen.index, autopct='%1.1f%%', colors=colores, startangle=140)
+plt.title("Exposición de Cartera por Tramos de Morosidad")
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 3: Riesgo Crediticio DTI -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip green"><i class="bi bi-bank"></i></div>
+              <div><h4 class="h5 mb-1">3. Riesgo de Préstamos y Ratio DTI</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> El Debt-to-Income (DTI) mide qué porcentaje de los ingresos brutos de una persona se destina a pagar deudas. Si es mayor a 40%, el riesgo de impago se dispara.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Procesamiento de una cartera de 8 solicitantes para calcular su DTI. Se grafica un diagrama de dispersión con líneas de corte para aprobación o rechazo automático.</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Datos de Solicitantes
+df = pd.DataFrame({
+    "Cliente": ["Ana", "Luis", "Carlos", "Marta", "Jorge", "Sofía", "Pedro", "Lucía"],
+    "IngresoMensual": [5000, 3200, 8000, 4500, 2500, 6000, 3800, 5200],
+    "DeudaMensual": [1500, 1800, 2000, 2200, 400, 3500, 1100, 1000]
+})
+
+# 2. Motor de Cálculo Financiero
+df["Ratio_DTI"] = (df["DeudaMensual"] / df["IngresoMensual"]) * 100
+df["Estado"] = ["Aprobado" if dti <= 40 else "Rechazado" for dti in df["Ratio_DTI"]]
+
+# 3. Mapeo Visual
+colores = df["Estado"].map({"Aprobado": "#28a745", "Rechazado": "#dc3545"})
+plt.figure(figsize=(7, 4))
+plt.scatter(df["IngresoMensual"], df["DeudaMensual"], c=colores, s=150, alpha=0.8, edgecolors="black")
+
+# Línea de Umbral de Riesgo (40%)
+x_vals = [2000, 8000]
+y_vals = [2000 * 0.40, 8000 * 0.40]
+plt.plot(x_vals, y_vals, 'k--', label="Umbral DTI (40%)")
+
+plt.title("Evaluación Crediticia Algorítmica (DTI)")
+plt.xlabel("Ingreso Mensual ($)")
+plt.ylabel("Deuda Mensual Actual ($)")
+plt.legend()
+plt.grid(True, linestyle=":", alpha=0.6)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 4: NPS y Sentimiento -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip"><i class="bi bi-emoji-smile"></i></div>
+              <div><h4 class="h5 mb-1">4. Net Promoter Score (NPS) y Sentimiento</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> El NPS es el principal KPI global de satisfacción del cliente. Promotores (9-10) menos Detractores (0-6) generan un índice vital para proyectar el crecimiento de la empresa.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Procesamos 20 encuestas de satisfacción, clasificamos categóricamente los votos y graficamos un Donut Chart con el score final renderizado dinámicamente.</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Ingesta de 20 Evaluaciones (0 a 10)
+scores = [10, 9, 8, 4, 10, 6, 7, 9, 2, 8, 10, 10, 7, 5, 9, 8, 10, 9, 1, 9]
+
+# 2. Lógica de Clasificación NPS
+promotores = len([s for s in scores if s >= 9])
+pasivos = len([s for s in scores if s in [7, 8]])
+detractores = len([s for s in scores if s <= 6])
+
+nps = ((promotores - detractores) / len(scores)) * 100
+
+# 3. Gráfico de Dona (Donut Chart)
+etiquetas = [f'Promotores ({promotores})', f'Pasivos ({pasivos})', f'Detractores ({detractores})']
+valores = [promotores, pasivos, detractores]
+colores = ['#28a745', '#ffc107', '#dc3545']
+
+plt.figure(figsize=(6, 4))
+plt.pie(valores, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90, wedgeprops={'width': 0.4})
+plt.title("Net Promoter Score (NPS)")
+
+# Inyectar el texto del KPI en el centro
+plt.text(0, 0, f"{nps:.1f}", ha='center', va='center', fontsize=24, fontweight='bold', color="#333")
+
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 5: Detección de Fraudes -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip text-danger"><i class="bi bi-shield-lock-fill"></i></div>
+              <div><h4 class="h5 mb-1">5. Detección de Anomalías (Antifraude)</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> Los bancos monitorean las transacciones de tarjetas en tiempo real usando algoritmos estadísticos (Z-Score) para congelar tarjetas cuando detectan gastos atípicos.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Análisis de historial de compras de un cliente para calcular la Media y Desviación Estándar. Se identifican las transacciones sospechosas que superan 2 desviaciones y se grafican.</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Historial de Gastos Diarios
+df = pd.DataFrame({
+    "Dia": range(1, 15),
+    "Gasto": [45, 52, 48, 60, 42, 55, 490, 50, 47, 53, 44, 420, 58, 49]
+})
+
+# 2. Cálculo Estadístico (Media y Varianza)
+media = df["Gasto"].mean()
+desviacion = df["Gasto"].std()
+limite_superior = media + (2 * desviacion)
+
+# 3. Etiquetado Algorítmico
+df["Alerta"] = df["Gasto"] > limite_superior
+anomalias = df[df["Alerta"]]
+
+# 4. Gráfico Analítico
+plt.figure(figsize=(7, 4))
+plt.plot(df["Dia"], df["Gasto"], marker='o', color="#17a2b8", label="Gasto Normal")
+plt.scatter(anomalias["Dia"], anomalias["Gasto"], color="red", s=150, zorder=5, label="FRAUDE DETECTADO")
+plt.axhline(limite_superior, color="orange", linestyle="dashed", label="Umbral de Alerta")
+
+plt.title("Sistema Antifraude: Z-Score en Tiempo Real")
+plt.xlabel("Día del Mes")
+plt.ylabel("Monto Transaccionado ($)")
+plt.legend()
+plt.grid(alpha=0.3)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 6: Cashflow -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip text-success"><i class="bi bi-graph-up-arrow"></i></div>
+              <div><h4 class="h5 mb-1">6. Previsión de Flujo de Efectivo</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> El "Cash is King". Una empresa puede ser rentable pero ir a la quiebra si se queda sin liquidez en caja para pagar nóminas (Burn Rate).</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Proyección de Entradas (Cobros) vs Salidas (Pagos) a 6 meses. Se utiliza `fill_between` para ilustrar visualmente las zonas de superávit y déficit (brechas de liquidez).</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Proyección Financiera
+meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun"]
+cobros = [12000, 15000, 11000, 18000, 22000, 20000]
+pagos = [10000, 16000, 14000, 13000, 15000, 25000]
+
+# 2. Visualización Avanzada
+plt.figure(figsize=(7, 4))
+plt.plot(meses, cobros, label="Ingresos Esperados", color="green", marker="o", linewidth=2)
+plt.plot(meses, pagos, label="Egresos Proyectados", color="red", marker="x", linewidth=2)
+
+# 3. Relleno Condicional (Brecha de Liquidez)
+plt.fill_between(meses, cobros, pagos, where=[c > p for c, p in zip(cobros, pagos)], interpolate=True, color='green', alpha=0.2, label="Superávit")
+plt.fill_between(meses, cobros, pagos, where=[c <= p for c, p in zip(cobros, pagos)], interpolate=True, color='red', alpha=0.2, label="Déficit (Peligro)")
+
+plt.title("Proyección de Flujo de Caja (Cashflow Forecast)")
+plt.ylabel("Miles de $")
+plt.legend(loc="upper left")
+plt.grid(linestyle="--", alpha=0.4)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 7: ROE / ROI -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip text-primary"><i class="bi bi-shop"></i></div>
+              <div><h4 class="h5 mb-1">7. Rentabilidad por Sucursal (ROI)</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> No todas las sucursales aportan igual. Evaluar el Retorno de Inversión (ROI) permite decidir si abrir más tiendas en una zona o cerrar operaciones irrentables.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Procesamiento de Beneficios vs Inversiones de 5 sucursales. Gráfico de barras horizontales ordenado algorítmicamente para premiar el desempeño superior.</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Datos de Sucursales
+df = pd.DataFrame({
+    "Sucursal": ["S. Domingo", "Santiago", "Punta Cana", "La Romana", "Puerto Plata"],
+    "Inversion": [500000, 350000, 800000, 200000, 450000],
+    "BeneficioNeto": [120000, 95000, 320000, 15000, 90000]
+})
+
+# 2. Cálculo Financiero del ROI (%)
+df["ROI"] = (df["BeneficioNeto"] / df["Inversion"]) * 100
+df = df.sort_values("ROI", ascending=True) # Ordenar para gráfico horizontal
+
+# 3. Visualización Ejecutiva
+plt.figure(figsize=(7, 4))
+barras = plt.barh(df["Sucursal"], df["ROI"], color="#2F6D9C")
+
+# Agregar etiquetas de valor en las barras
+for barra in barras:
+    plt.text(barra.get_width() + 1, barra.get_y() + 0.3, f"{barra.get_width():.1f}%", va='center', fontweight='bold')
+
+plt.title("Retorno de Inversión (ROI) por Sucursal")
+plt.xlabel("Porcentaje de Retorno (%)")
+plt.xlim(0, max(df["ROI"]) + 10)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 8: Portafolio Inversión -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip text-warning"><i class="bi bi-pie-chart-fill"></i></div>
+              <div><h4 class="h5 mb-1">8. Diversificación de Portafolio</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> "No pongas todos los huevos en la misma canasta". Un portafolio de inversión institucional debe equilibrar la renta fija (segura) con la renta variable (arriesgada).</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Modelado de un portafolio de 1 millón de dólares. Visualización interactiva tipo Treemap simulado con un gráfico de dona avanzado y desglose (Explode).</p>
+            <pre><code class="language-python">import matplotlib.pyplot as plt
+
+# 1. Asignación de Activos (Asset Allocation)
+activos = ["Bonos Tesoro (Seguro)", "Acciones SP500", "Bienes Raíces", "Criptomonedas (Riesgo)"]
+capital = [450000, 350000, 150000, 50000]
+
+# 2. Configuración Visual
+# Separamos el activo de mayor riesgo para resaltarlo visualmente
+resaltar = (0, 0, 0, 0.2) 
+colores = ["#6c757d", "#007bff", "#28a745", "#dc3545"]
+
+# 3. Gráfico de Dona con Desglose
+plt.figure(figsize=(7, 4))
+plt.pie(capital, labels=activos, autopct='%1.0f%%', startangle=140, 
+        explode=resaltar, colors=colores, pctdistance=0.85,
+        wedgeprops=dict(width=0.4, edgecolor='w'))
+
+plt.title("Diversificación de Capital de Inversión")
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 9: Churn Rate -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip text-danger"><i class="bi bi-person-x-fill"></i></div>
+              <div><h4 class="h5 mb-1">9. Fuga de Clientes (Churn Rate)</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> En negocios de suscripción (Netflix, Gimnasios, SaaS), retener clientes antiguos es un 70% más barato que adquirir nuevos. Medir la curva de abandono es vital.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Análisis de supervivencia de Cohortes. Graficamos cómo va cayendo el volumen de 100 clientes iniciales mes a mes mediante un "Step Chart" (Gráfico de Pasos).</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Datos de Supervivencia (Cohorte de Enero)
+meses = [0, 1, 2, 3, 4, 5, 6]
+clientes_activos = [100, 92, 85, 71, 68, 65, 63]
+
+# 2. Cálculo de Fuga Acumulada
+tasa_retencion = (clientes_activos[-1] / clientes_activos[0]) * 100
+
+# 3. Visualización de Supervivencia (Step Chart)
+plt.figure(figsize=(7, 4))
+plt.step(meses, clientes_activos, where='post', color="#dc3545", linewidth=2.5)
+plt.fill_between(meses, clientes_activos, step="post", alpha=0.1, color="#dc3545")
+
+plt.title(f"Curva de Supervivencia (Retención: {tasa_retencion:.1f}%)")
+plt.xlabel("Meses desde la Suscripción")
+plt.ylabel("Clientes Activos Restantes")
+plt.ylim(0, 110)
+plt.grid(True, linestyle=":", alpha=0.5)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 10: Inflación -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip text-warning"><i class="bi bi-cash-coin"></i></div>
+              <div><h4 class="h5 mb-1">10. Impacto de Inflación en el Ahorro</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> Mantener dinero estático en una cuenta de ahorros sin invertir significa perder poder adquisitivo real cada año debido a la inflación macroeconómica.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Simulación matemática del Decaimiento Exponencial. Proyectamos cómo 1 millón de dólares se devalúa en 10 años con una inflación promedio del 5%.</p>
+            <pre><code class="language-python">import matplotlib.pyplot as plt
+
+# 1. Parámetros del Modelo Macro
+capital_inicial = 1000000
+inflacion_anual = 0.05
+anios = list(range(11))
+
+# 2. Función de Valor Presente (Depreciación Exponencial)
+# Fórmula: Valor = Capital / (1 + inflacion)^año
+valor_real = [capital_inicial / ((1 + inflacion_anual)**a) for a in anios]
+
+# 3. Gráfico de Decaimiento
+plt.figure(figsize=(7, 4))
+plt.plot(anios, valor_real, color="#ffc107", linewidth=3, marker="o")
+plt.fill_between(anios, valor_real, color="#ffc107", alpha=0.1)
+
+plt.title("Pérdida de Poder Adquisitivo (Inflación 5%)")
+plt.xlabel("Años Transcurridos")
+plt.ylabel("Valor Real del Dinero ($)")
+plt.ticklabel_format(style='plain', axis='y') # Quitar notación científica
+plt.grid(linestyle='--', alpha=0.4)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 11: Sensibilidad Hipotecaria -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip text-info"><i class="bi bi-house-door-fill"></i></div>
+              <div><h4 class="h5 mb-1">11. Sensibilidad Hipotecaria (Estrés)</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> En finanzas, los "Stress Tests" evalúan qué pasa con las cuotas de los clientes si el Banco Central decide subir drásticamente las tasas de interés.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Modelado matemático de una cuota nivelada (fórmula francesa) para una hipoteca de $200k a 20 años bajo diferentes escenarios de tasas (4% a 12%).</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Fórmula de Cuota Francesa
+def calcular_cuota(prestamo, tasa_anual, anios):
+    tasa_mensual = tasa_anual / 12 / 100
+    meses = anios * 12
+    return prestamo * (tasa_mensual * (1 + tasa_mensual)**meses) / ((1 + tasa_mensual)**meses - 1)
+
+# 2. Generación de Escenarios
+prestamo = 200000
+tasas = [4, 5, 6, 7, 8, 9, 10, 11, 12]
+cuotas = [calcular_cuota(prestamo, t, 20) for t in tasas]
+
+# 3. Gráfico de Sensibilidad (Curva de Estrés)
+plt.figure(figsize=(7, 4))
+plt.plot(tasas, cuotas, color="#17a2b8", linewidth=2.5, marker="s")
+plt.axhline(cuotas[0], color="green", linestyle="--", label="Cuota Inicial (4%)")
+plt.axhline(cuotas[-1], color="red", linestyle="--", label="Escenario Pesimista (12%)")
+
+plt.title("Stress Test: Impacto de Tasas en Hipoteca de $200k")
+plt.xlabel("Tasa de Interés Hipotecaria (%)")
+plt.ylabel("Cuota Mensual Nivelada ($)")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+        <!-- Caso 12: Desempeño Vendedores -->
+        <div class="col-lg-6">
+          <div class="card-manual h-100">
+            <div class="d-flex gap-3 mb-2">
+              <div class="icon-chip text-primary"><i class="bi bi-person-badge-fill"></i></div>
+              <div><h4 class="h5 mb-1">12. Matriz de Desempeño de Vendedores</h4></div>
+            </div>
+            <p class="small text-muted mb-2"><strong>Contexto:</strong> En Recursos Humanos, cruzar las "Ventas Totales" contra la "Satisfacción del Cliente" permite crear una matriz de 4 cuadrantes para detectar líderes y empleados problemáticos.</p>
+            <p class="small text-muted mb-3"><strong>Resumen Ejecutivo:</strong> Scatter plot bidimensional cruzando rendimiento comercial (Y) vs Calidad (X). Se inyectan líneas de promedio dinámicas para dividir a 7 vendedores en cuadrantes estratégicos.</p>
+            <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Datos del Personal
+df = pd.DataFrame({
+    "Vendedor": ["Juan", "Ana", "Luis", "Marta", "Pedro", "Sofia", "Carlos"],
+    "Ventas": [120, 350, 90, 310, 150, 420, 200], # En miles
+    "Satisfaccion": [6.5, 9.2, 5.0, 7.8, 8.5, 9.5, 6.0] # Escala 1-10
+})
+
+# 2. Limites de los Cuadrantes (Promedios del Grupo)
+media_ventas = df["Ventas"].mean()
+media_sat = df["Satisfaccion"].mean()
+
+# 3. Mapeo en Cuadrante (Scatter)
+plt.figure(figsize=(7, 4))
+plt.scatter(df["Satisfaccion"], df["Ventas"], color="#6f42c1", s=100)
+
+for i, txt in enumerate(df["Vendedor"]):
+    plt.text(df["Satisfaccion"][i] + 0.1, df["Ventas"][i], txt)
+
+# 4. Líneas Divisorias Maestras
+plt.axvline(media_sat, color='gray', linestyle='--')
+plt.axhline(media_ventas, color='gray', linestyle='--')
+
+plt.title("Matriz de Talento: Rendimiento Comercial vs Calidad")
+plt.xlabel("Índice de Satisfacción del Cliente (CSAT)")
+plt.ylabel("Volumen de Ventas ($ Miles)")
+plt.tight_layout()
+plt.show()</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+
+<!-- 07 · PROYECTO FINAL DASHBOARD EN STREAMLIT -->
+<section id="dashboard-final" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 07 · Proyecto de Cierre</span>
+      <h2 class="section-title">Mini Dashboard Integral con Streamlit</h2>
+      <p class="lead-soft mt-2">
+        El análisis de datos brilla cuando se presenta a los tomadores de decisiones. Este bloque final unifica varios de los casos de negocio anteriores en un <strong>Panel Web Interactivo</strong> usando <code>Streamlit</code>.
+      </p>
+
+      <div class="alert alert-info border-0 shadow-sm mt-3" role="alert" style="background-color: rgba(13, 110, 253, 0.05);">
+        <h5 class="alert-heading fw-bold"><i class="bi bi-tools"></i> Cómo ejecutar esto en tu VS Code local:</h5>
+        <ol class="text-secondary mb-0">
+          <li><strong>Instala las dependencias:</strong> En tu terminal ejecuta <code>python -m pip install streamlit pandas matplotlib numpy</code>.</li>
+          <li><strong>Crea un archivo:</strong> Copia el código de abajo y guárdalo como <code>app.py</code>.</li>
+          <li><strong>Lanza el servidor:</strong> En tu terminal ejecuta <code>python -m streamlit run app.py</code>. (Se abrirá una nueva pestaña en tu navegador).</li>
+        </ol>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <h4 class="h5 mb-3 fw-bold text-primary"><i class="bi bi-code-square"></i> Código Fuente (app.py)</h4>
+          <pre id="st_code_block"><code class="language-python">import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+st.set_page_config(page_title="Finanzas Hub", layout="wide")
+st.title("📊 Executive Operations & Risk Analytics Hub")
+st.caption("Masterclass Python Experience — Creado por: Ing. Juancito Peña")
+
+# --- GENERACIÓN DE DATOS MASIVOS EN MEMORIA ---
+@st.cache_data
+def load_data():
+    # 1. Ventas Regionales
+    ventas = pd.DataFrame({
+        "Region": ["Norte", "Sur", "Centro", "Este", "Oeste", "Norte", "Sur"],
+        "Ventas": [45000, 32000, 58000, 21000, 64000, 39000, 34000]
+    })
+    # 2. Cuentas por Cobrar
+    cxc = pd.DataFrame({
+        "Cliente": ["Retail Corp", "Global Log", "AgroSur", "Inversiones AL", "TecnoGroup", "Mega Market", "Distribuidora Sol"],
+        "Saldo": [12000.0, 23500.0, 8900.0, 15400.0, 3100.0, 42000.0, 11500.0],
+        "Dias": [15, 95, 12, 65, 5, 110, 45]
+    })
+    # 3. Solicitudes de Préstamo
+    np.random.seed(42)
+    creditos = pd.DataFrame({
+        "Solicitante": [f"Cliente {i}" for i in range(1, 21)],
+        "Ingreso": np.random.randint(3000, 10000, 20),
+        "Deuda": np.random.randint(500, 4500, 20),
+        "Score": np.random.randint(550, 850, 20)
+    })
+    # 4. Encuestas NPS
+    nps = pd.DataFrame({
+        "ID": range(1, 11),
+        "Puntaje": [10, 9, 8, 4, 10, 5, 9, 7, 1, 9],
+        "Comentario": ["Excelente servicio", "Muy rápida aprobación", "Servicio regular web", 
+                       "Pésimo tiempo en caja", "Mejor tasa del mercado", "Mala experiencia app", 
+                       "Todo correcto", "Atención aceptable", "Pésima actitud", "Muy amables"]
+    })
+    return ventas, cxc, creditos, nps
+
+df_ventas, df_cxc, df_creditos, df_nps = load_data()
+
+# --- INTERFAZ DEL DASHBOARD (TABS) ---
+t1, t2, t3, t4 = st.tabs(["📈 Ventas & Pareto", "⏳ Riesgo de Cartera (CxC)", "🏦 Préstamos & DTI", "💬 Satisfacción (NPS)"])
+
+with t1:
+    st.subheader("Desempeño Regional de Ventas")
+    c1, c2 = st.columns([1, 1])
+    with c1:
+        st.metric("Facturación Bruta Total", f"${df_ventas['Ventas'].sum():,.2f}")
+        df_agrupado = df_ventas.groupby("Region")["Ventas"].sum().sort_values(ascending=False)
+        fig, ax = plt.subplots(figsize=(6, 4))
+        df_agrupado.plot(kind="bar", color="#2F6D9C", ax=ax, edgecolor="black")
+        ax.set_ylabel("Monto ($)")
+        ax.tick_params(axis='x', rotation=0)
+        st.pyplot(fig)
+    with c2:
+        st.dataframe(df_ventas, width="stretch")
+
+with t2:
+    st.subheader("Aging de Cartera y Morosidad (Cuentas por Cobrar)")
+    def categorizar_mora(dias):
+        if dias <= 30: return "0-30 días (Sano)"
+        elif dias <= 60: return "31-60 días (Riesgo Leve)"
+        elif dias <= 90: return "61-90 días (Riesgo Medio)"
+        return "+90 días (Crítico)"
+    df_cxc["Tramo"] = df_cxc["Dias"].apply(categorizar_mora)
+    
+    c1, c2 = st.columns([1, 1])
+    with c1:
+        resumen_mora = df_cxc.groupby("Tramo")["Saldo"].sum()
+        fig2, ax2 = plt.subplots(figsize=(6, 4))
+        ax2.pie(resumen_mora, labels=resumen_mora.index, autopct='%1.1f%%', startangle=140, 
+                colors=['#28a745', '#ffc107', '#fd7e14', '#dc3545'])
+        st.pyplot(fig2)
+    with c2:
+        st.dataframe(df_cxc.style.format({"Saldo": "${:,.2f}"}), width="stretch")
+
+with t3:
+    st.subheader("Evaluación de Solicitudes (Ratio DTI)")
+    df_creditos["Ratio_DTI"] = (df_creditos["Deuda"] / df_creditos["Ingreso"]) * 100
+    df_creditos["Dictamen"] = df_creditos.apply(
+        lambda r: "APROBADO" if r["Ratio_DTI"] <= 40 and r["Score"] >= 700 else "RECHAZADO", axis=1
+    )
+    st.dataframe(df_creditos.style.format({"Ingreso": "${:,.2f}", "Deuda": "${:,.2f}", "Ratio_DTI": "{:.1f}%"}), width="stretch")
+
+with t4:
+    st.subheader("Net Promoter Score (NPS) y Análisis Heurístico")
+    prom = len(df_nps[df_nps["Puntaje"] >= 9])
+    det = len(df_nps[df_nps["Puntaje"] <= 6])
+    nps_val = ((prom - det) / len(df_nps)) * 100
+    st.metric("Net Promoter Score Global", f"{nps_val:.1f}")
+    
+    pos = ["excelente", "rápida", "mejor", "correcto", "amables"]
+    neg = ["pésimo", "mala", "demoras", "pésima"]
+    def eval_sentiment(txt):
+        score = sum(1 for p in pos if p in txt.lower()) - sum(1 for n in neg if n in txt.lower())
+        return "Positivo 🟢" if score > 0 else ("Negativo 🔴" if score < 0 else "Neutro 🟡")
+    
+    df_nps["Sentimiento"] = df_nps["Comentario"].apply(eval_sentiment)
+    st.dataframe(df_nps, width="stretch")
+
+# Validación de ejecución correcta en consola
+if __name__ == "__main__":
+    import sys
+    print("\n" + "="*60)
+    print("🚨 ERROR: Este es un script de Streamlit, no un script normal.")
+    print("No debes ejecutarlo con 'python app.py'.")
+    print("👉 Por favor, ejecuta en la terminal: streamlit run app.py")
+    print("="*60 + "\n")
+    sys.exit(1)
+</code></pre>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+<hr class="section-divider">
+
+<!-- 08 · API DASHBOARD -->
+<section id="dashboard-api" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 08 · Dashboards Nivel PRO</span>
+      <h2 class="section-title">Monitor de Mercados Financieros (API Global)</h2>
+      <p class="lead-soft mt-2">
+        Las instituciones financieras vigilan la volatilidad en tiempo real. Aquí conectaremos Python directamente a servidores de bolsa para extraer el histórico de divisas y cripto usando APIs reales.
+      </p>
+
+      <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+          <div class="p-4 rounded-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+            <h5 class="fw-bold text-danger"><i class="bi bi-x-circle-fill"></i> El Reto de Negocio</h5>
+            <p class="text-secondary small">La mesa de tesorería necesita vigilar el comportamiento del Dólar frente al Euro, la Libra y el Bitcoin para decidir coberturas, pero descargar reportes diarios en Excel es lento e ineficiente.</p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="p-4 rounded-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+            <h5 class="fw-bold text-success"><i class="bi bi-check-circle-fill"></i> La Solución Python</h5>
+            <p class="text-secondary small">Usaremos la potente librería <code>yfinance</code> (Yahoo Finance) para conectarnos a la bolsa, extraer datos históricos (meses o años), y los graficaremos dinámicamente con <code>Altair</code>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info border-0 shadow-sm mt-3" role="alert" style="background-color: rgba(13, 110, 253, 0.05);">
+        <h5 class="alert-heading fw-bold"><i class="bi bi-tools"></i> Cómo ejecutar esto en tu VS Code local:</h5>
+        <ol class="text-secondary mb-0">
+          <li><strong>Instala las dependencias:</strong> En tu terminal ejecuta <code>python -m pip install streamlit pandas yfinance altair</code>.</li>
+          <li><strong>Crea un archivo:</strong> Copia el código de abajo y guárdalo como <code>app_api.py</code>.</li>
+          <li><strong>Lanza el servidor:</strong> Ejecuta <code>python -m streamlit run app_api.py</code>.</li>
+        </ol>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <h4 class="h5 mb-3 fw-bold text-primary"><i class="bi bi-code-square"></i> Código Fuente (app_api.py)</h4>
+          <pre><code class="language-python">import streamlit as st
+import pandas as pd
+import yfinance as yf
+import altair as alt
+from datetime import datetime, timedelta
+
+st.set_page_config(page_title="Global Markets FX | API", layout="wide", page_icon="💹")
+
+# ==============================================================================
+# CONFIGURACIÓN Y OBTENCIÓN DE DATOS (API YFINANCE)
+# ==============================================================================
+st.sidebar.title("⚙️ Parámetros de Mercado")
+moneda_base = st.sidebar.selectbox("Moneda Base:", ["USD", "EUR", "GBP"])
+periodo = st.sidebar.select_slider("Período Histórico:", options=["5d", "1mo", "3mo", "6mo", "1y"], value="1mo")
+
+PARES = {
+    "EUR": f"{moneda_base}EUR=X",
+    "GBP": f"{moneda_base}GBP=X",
+    "DOP": f"{moneda_base}DOP=X",  # Peso Dominicano
+    "MXN": f"{moneda_base}MXN=X",
+    "BTC": f"BTC-{moneda_base}"
+}
+
+@st.cache_data(ttl=300) # Cache de 5 mins para no saturar la API
+def extraer_datos_mercado(tickers, period):
+    datos = {}
+    for nombre, ticker in tickers.items():
+        if moneda_base == nombre: continue # Evitar cruce igual
+        try:
+            hist = yf.Ticker(ticker).history(period=period)
+            if not hist.empty:
+                datos[nombre] = hist[['Close']].reset_index()
+                datos[nombre]['Par'] = f"{moneda_base}/{nombre}"
+        except:
+            pass
+    return datos
+
+with st.spinner("Conectando con servidores de bolsa (Yahoo Finance)..."):
+    mercado_data = extraer_datos_mercado(PARES, periodo)
+
+# ==============================================================================
+# PANEL PRINCIPAL
+# ==============================================================================
+st.title("💹 Tesorería Global & FX Tracker")
+st.markdown("Cotizaciones en tiempo real e histórico de volatilidad de divisas.")
+
+if mercado_data:
+    st.markdown("### 📊 Tasas de Cambio Principales (Spot)")
+    cols = st.columns(len(mercado_data))
+    
+    # Consolidar para gráfico
+    dfs_lista = []
+    
+    for idx, (moneda, df_moneda) in enumerate(mercado_data.items()):
+        # KPI y Variación
+        ultimo_precio = df_moneda.iloc[-1]['Close']
+        precio_previo = df_moneda.iloc[-2]['Close'] if len(df_moneda) > 1 else ultimo_precio
+        variacion = ((ultimo_precio - precio_previo) / precio_previo) * 100
+        
+        # Color del KPI: En divisas (FX), si la tasa sube significa devaluación de la base, a menos que sea Crypto.
+        cols[idx].metric(
+            label=f"{moneda_base} / {moneda}", 
+            value=f"{ultimo_precio:,.4f}", 
+            delta=f"{variacion:.2f}%",
+            delta_color="inverse" if moneda != "BTC" else "normal" 
+        )
+        
+        # Preparar data para Altair
+        df_limpio = df_moneda.copy()
+        df_limpio['Moneda'] = moneda
+        dfs_lista.append(df_limpio)
+
+    df_consolidado = pd.concat(dfs_lista)
+    
+    st.divider()
+    
+    c1, c2 = st.columns([2,1])
+    with c1:
+        st.subheader("📈 Tendencia Histórica")
+        # Grafico interactivo con Altair
+        chart = alt.Chart(df_consolidado).mark_line(strokeWidth=3).encode(
+            x=alt.X('Date:T', title='Fecha'),
+            y=alt.Y('Close:Q', title='Tasa de Cambio', scale=alt.Scale(zero=False)),
+            color=alt.Color('Moneda:N', legend=alt.Legend(orient="bottom")),
+            tooltip=['Date:T', 'Moneda', 'Close']
+        ).properties(height=400).interactive()
+        st.altair_chart(chart, use_container_width=True)
+        
+    with c2:
+        st.subheader("📋 Matriz de Datos")
+        df_pivot = df_consolidado.pivot(index='Date', columns='Moneda', values='Close').sort_index(ascending=False).reset_index()
+        # Convertir a datetime y forzar zona horaria UTC para evitar el error Tz-aware de yfinance
+        df_pivot['Date'] = pd.to_datetime(df_pivot['Date'], utc=True).dt.strftime('%Y-%m-%d')
+        st.dataframe(df_pivot, hide_index=True, use_container_width=True)
+else:
+    st.error("No se pudieron obtener datos de la API. Verifica tu conexión a Internet.")
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- 09 · NLP DASHBOARD -->
+<section id="dashboard-nlp" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 09 · Dashboards Nivel PRO</span>
+      <h2 class="section-title">Análisis de Sentimiento (Motor NLP Avanzado)</h2>
+      <p class="lead-soft mt-2">
+        La minería de texto y el <strong>Procesamiento de Lenguaje Natural (NLP)</strong> extraen valor real de encuestas, redes sociales y correos electrónicos.
+      </p>
+
+      <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+          <div class="p-4 rounded-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+            <h5 class="fw-bold text-danger"><i class="bi bi-x-circle-fill"></i> El Reto de Negocio</h5>
+            <p class="text-secondary small">Atención al Cliente recibe miles de quejas (VoC - Voice of Customer) diarias por WhatsApp y Twitter. Leerlas a mano es inviable, y no detectan a tiempo las quejas urgentes o intentos de demanda.</p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="p-4 rounded-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+            <h5 class="fw-bold text-success"><i class="bi bi-check-circle-fill"></i> La Solución Python</h5>
+            <p class="text-secondary small">Diseñaremos un <strong>Motor NLP de Categorización</strong> que detecta palabras clave, identifica el departamento responsable, calcula el nivel de riesgo (Crítico/Normal) y genera un plan de acción.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info border-0 shadow-sm mt-3" role="alert" style="background-color: rgba(13, 110, 253, 0.05);">
+        <h5 class="alert-heading fw-bold"><i class="bi bi-tools"></i> Cómo ejecutar esto en tu VS Code local:</h5>
+        <ol class="text-secondary mb-0">
+          <li><strong>Instala las dependencias:</strong> En tu terminal ejecuta <code>python -m pip install streamlit pandas altair</code>.</li>
+          <li><strong>Crea un archivo:</strong> Copia el código de abajo y guárdalo como <code>app_nlp.py</code>.</li>
+          <li><strong>Lanza el servidor:</strong> Ejecuta <code>python -m streamlit run app_nlp.py</code>.</li>
+        </ol>
+      </div>
+
+      <!-- INSTRUCTIONS FOR NLP -->
+      <div class="mt-4 mb-4 p-4 border rounded-3 bg-light">
+        <h5 class="fw-bold"><i class="bi bi-vial-fill text-primary"></i> Datos de Prueba Interactiva (Copiar y Pegar en tu App)</h5>
+        <p class="small text-secondary mb-3">Una vez tengas tu aplicación ejecutándose en el navegador, usa las opciones del <strong>menú lateral</strong> (Sidebar) y pega estos datos para ver la magia de tu motor NLP.</p>
+        
+        <ul class="nav nav-tabs mt-3" id="testTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-telecom" type="button">Opción 1: Caso Telecom</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-banco" type="button">Opción 2: Banca Digital</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-csv" type="button">Opción 3: Carga Archivo CSV</button>
+          </li>
+        </ul>
+        
+        <div class="tab-content border border-top-0 p-3 bg-white" id="testTabsContent">
+          <!-- TAB 1 -->
+          <div class="tab-pane fade show active" id="tab-telecom">
+            <p class="small text-secondary mb-2">Selecciona <strong>"3. Pegar Texto Masivo"</strong> en tu aplicación e ingresa esto:</p>
+            <pre><code class="language-text">Excelente velocidad de internet de fibra óptica y el técnico llegó puntual, muy buen servicio y calidad.
+Se cayó la señal en todo mi barrio, llevo dos días incomunicado y nadie contesta, una verdadera vergüenza.
+Quisiera consultar cuándo es la fecha de vencimiento de mi factura de este mes y los medios de pago disponibles.
+El servicio de atención no es bueno, la app móvil es muy lenta y se queda congelada al abrirla.
+Me aplicaron un cobro indebido en la tarifa y me siguen debitando dinero tras cancelar, exijo solución o voy a denuncia.
+El asesor por WhatsApp respondió muy rápido y fue muy amable, solucionó mi problema en minutos.</code></pre>
+            <div class="alert alert-success py-2 mt-2 mb-0"><small><strong>¿Qué validará tu sistema?</strong><br>🟢 2 Positivos (Fibra y WhatsApp)<br>🟡 1 Neutro (Consulta operativa)<br>🔴 3 Negativos (Inversión por negación "no es bueno" y alertas CRÍTICAS por palabras como "incomunicado" y "denuncia").</small></div>
+          </div>
+          
+          <!-- TAB 2 -->
+          <div class="tab-pane fade" id="tab-banco">
+             <p class="small text-secondary mb-2">Selecciona <strong>"3. Pegar Texto Masivo"</strong> en tu aplicación e ingresa esto:</p>
+            <pre><code class="language-text">Me encanta la nueva actualización de la banca móvil, es súper fácil y rápido transferir dinero.
+La app no me deja entrar desde la última actualización, da error de login constante y el soporte es pésimo.
+¿Cuáles son los requisitos y el costo de mantenimiento para solicitar una tarjeta de crédito internacional?
+Me cobraron cargos dobles en mi cuenta sin justificación, exijo la devolución inmediata de mi plata.
+Excelente trato de la asesora en la sucursal, resolvió mi trámite con gran amabilidad y rapidez.</code></pre>
+            <div class="alert alert-success py-2 mt-2 mb-0"><small><strong>¿Qué validará tu sistema?</strong><br>Detectará automáticamente los departamentos (App Móvil vs. Facturación vs. Atención al Cliente) y apilará gráficamente la proporción exacta verde/amarillo/rojo.</small></div>
+          </div>
+          
+          <!-- TAB 3 -->
+          <div class="tab-pane fade" id="tab-csv">
+            <p class="small text-secondary mb-2">Selecciona <strong>"2. Subir Archivo (CSV)"</strong>, guarda este texto en tu PC como <code>opiniones.csv</code> y súbelo:</p>
+            <pre><code class="language-text">ID,Canal,Cliente,Texto
+CLI-01,Twitter,Laura Gomez,La fibra óptica vuela de rápido y nunca se cae, excelente calidad recomendada.
+CLI-02,Call Center,Pedro Martinez,Pésima atención telefónica, estuve 40 minutos en espera y me cortan la llamada.
+CLI-03,WhatsApp,Marta Ruiz,Hola buenas tardes, quisiera saber si tienen cobertura de internet en la zona norte.
+CLI-04,App Store,Lucas Perez,La app no es rápida, se traba al querer ver la factura y tiene muchos errores.
+CLI-05,Sucursal,Andres Castro,Excelente atención del equipo de soporte técnico, muy atentos y amables.
+CLI-06,Twitter,Sofia Vega,Cancelé mi suscripción el mes pasado y me siguen debitando de la tarjeta, un desastre total.</code></pre>
+            <div class="alert alert-success py-2 mt-2 mb-0"><small><strong>¿Qué validará tu sistema?</strong><br>La lectura inteligente de columnas y mostrará el gráfico de rendimiento por "Canal de Contacto" (Twitter vs App Store, etc).</small></div>
+            <p class="small text-primary mt-2 mb-0"><i class="bi bi-download"></i> Una vez procesado, podrás descargar el reporte final limpio entrando a la pestaña <strong>"📋 Todos los Datos"</strong> y guardando tu <code>NLP_Analisis_Resultados.csv</code>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <h4 class="h5 mb-3 fw-bold text-primary"><i class="bi bi-code-square"></i> Código Fuente (app_nlp.py)</h4>
+          <pre><code class="language-python">import streamlit as st
+import pandas as pd
+import altair as alt
+from collections import Counter
+import re
+import json
+import io
+
+# ==============================================================================
+# CONFIGURACIÓN GENERAL
+# ==============================================================================
+st.set_page_config(
+    page_title="Enterprise VoC Analytics | NLP Engine", 
+    page_icon="📈", 
+    layout="wide"
+)
+
+# Paleta de colores semántica empresarial
+COLOR_SCALE = alt.Scale(
+    domain=['Positivo', 'Neutro', 'Negativo'],
+    range=['#22c55e', '#eab308', '#ef4444']  # Verde, Amarillo, Rojo
+)
+
+# ==============================================================================
+# RECURSOS NLP Y REGLAS DE NEGOCIO
+# ==============================================================================
+STOPWORDS_ES = {
+    "el", "la", "los", "las", "un", "una", "unos", "unas", "y", "o", "pero", "si", "de", "en", 
+    "para", "por", "con", "es", "son", "fue", "era", "su", "sus", "a", "al", "del", "que", "muy",
+    "este", "esta", "estos", "estas", "como", "mi", "mis", "ha", "he", "ya", "me", "le", "les"
+}
+
+NEGACIONES = {"no", "tampoco", "nunca", "jamás", "nada", "sin", "ni"}
+
+LEXICO_POS = {
+    "excelente", "encanta", "rápido", "rapido", "genial", "buen", "bueno", "buena", "amable", 
+    "atenta", "solucionaron", "impecable", "fácil", "perfecto", "calidad", "recomiendo", "gracias"
+}
+
+LEXICO_NEG = {
+    "pésimo", "pesimo", "lenta", "lento", "malo", "mala", "error", "errores", "falla", "fallas", 
+    "cobro", "estafa", "incomunicado", "cortan", "vergüenza", "engaño", "congelada", "caro", 
+    "terrible", "desastre", "espera", "nunca", "inútil", "caído", "decepcionado"
+}
+
+CATEGORIAS_DEPARTAMENTO = {
+    "Facturación y Cobranza": ["factura", "cobro", "cobron", "debitando", "tarifa", "precio", "saldo", "cargos", "plata", "pago"],
+    "Red y Conectividad": ["señal", "5g", "fibra", "internet", "velocidad", "incomunicado", "router", "cae", "técnico", "tecnico", "cobertura"],
+    "App Móvil y Plataforma": ["app", "aplicación", "transferir", "actualización", "web", "congelada", "interfaz", "login", "sistema", "error"],
+    "Atención al Cliente": ["asesor", "asesora", "soporte", "atención", "atencion", "llamada", "whatsapp", "espera", "sucursal", "demora"]
+}
+
+TERMINOS_CRITICOS = {"estafa", "denuncia", "defensa del consumidor", "incomunicado", "cortan", "abuso", "cobro indebido", "fraude"}
+
+# ==============================================================================
+# MOTOR NLP CORE
+# ==============================================================================
+def tokenizar(texto: str) -> list:
+    return re.findall(r'\b[a-záéíóúüñA-ZÁÉÍÓÚÜÑ]+\b', str(texto).lower())
+
+def procesar_texto_unitario(row: dict) -> dict:
+    texto = str(row.get("Texto", ""))
+    tokens = tokenizar(texto)
+    score = 0
+    pos_encontradas = []
+    neg_encontradas = []
+
+    for i, w in enumerate(tokens):
+        prev = tokens[i-1] if i > 0 else ""
+        negada = prev in NEGACIONES
+
+        if w in LEXICO_POS:
+            if negada:
+                score -= 1
+                neg_encontradas.append(f"no {w}")
+            else:
+                score += 1
+                pos_encontradas.append(w)
+        elif w in LEXICO_NEG:
+            if negada:
+                score += 0.5
+            else:
+                score -= 1
+                neg_encontradas.append(w)
+
+    if score > 0:
+        sentimiento = "Positivo"
+    elif score < 0:
+        sentimiento = "Negativo"
+    else:
+        sentimiento = "Neutro"
+
+    # Clasificar departamento
+    dept_asignado = "Consultas / General"
+    for dept, keywords in CATEGORIAS_DEPARTAMENTO.items():
+        if any(k in tokens for k in keywords):
+            dept_asignado = dept
+            break
+
+    # Prioridad
+    es_critico = any(t in texto.lower() for t in TERMINOS_CRITICOS) or (score <= -2)
+    prioridad = "ALTA (Crítico)" if es_critico else ("MEDIA" if sentimiento == "Negativo" else "NORMAL")
+
+    return {
+        "ID": row.get("ID", f"TKT-{hash(texto)%10000:04d}"),
+        "Canal": row.get("Canal", "Web / Ingesta"),
+        "Cliente": row.get("Cliente", "Cliente Registrado"),
+        "Texto": texto,
+        "Sentimiento": sentimiento,
+        "Score": score,
+        "Departamento": dept_asignado,
+        "Prioridad": prioridad,
+        "Tokens_Pos": ", ".join(pos_encontradas),
+        "Tokens_Neg": ", ".join(neg_encontradas)
+    }
+
+# ==============================================================================
+# DATA DEMO BASE (TELECOM & BANCO)
+# ==============================================================================
+DEMO_DATA = [
+    {"ID": "TKT-101", "Canal": "Twitter", "Cliente": "Carlos M.", "Texto": "Me cobraron el doble en la factura de este mes sin justificación. Pésimo soporte."},
+    {"ID": "TKT-102", "Canal": "App Store", "Cliente": "Mariana G.", "Texto": "La señal 5G es increíblemente rápida en mi ciudad, me encanta la velocidad para trabajar."},
+    {"ID": "TKT-103", "Canal": "Encuesta CSAT", "Cliente": "Jorge L.", "Texto": "La aplicación no me deja transferir dinero desde ayer, se queda congelada. Terrible falla."},
+    {"ID": "TKT-104", "Canal": "Sucursal", "Cliente": "Camila R.", "Texto": "Excelente atención de la asesora en el centro de atención, fue muy amable y rápida."},
+    {"ID": "TKT-105", "Canal": "Twitter", "Cliente": "Esteban D.", "Texto": "Se cae la señal cada vez que llueve. Llevo 3 días incomunicado, una verdadera vergüenza."},
+    {"ID": "TKT-106", "Canal": "WhatsApp", "Cliente": "Lucía P.", "Texto": "¿Cuál es el horario de atención para consultar las tarifas de planes prepago?"},
+    {"ID": "TKT-107", "Canal": "Call Center", "Cliente": "Roberto F.", "Texto": "Cancelé el plan hace 2 meses y me siguen debitando dinero. Exijo una solución inmediata o denuncia."},
+    {"ID": "TKT-108", "Canal": "App Store", "Cliente": "Valeria H.", "Texto": "Muy buena la nueva actualización de la app, ahora es fácil y rápido ver consumos."},
+    {"ID": "TKT-109", "Canal": "Call Center", "Cliente": "Andrés V.", "Texto": "El router vino con falla, prometieron técnico para hoy y nunca llegó al domicilio."},
+    {"ID": "TKT-110", "Canal": "WhatsApp", "Cliente": "Sofía T.", "Texto": "El soporte por WhatsApp resolvió mi consulta en cinco minutos, muy atentos y rápida solución."},
+    {"ID": "TKT-111", "Canal": "Encuesta CSAT", "Cliente": "Martín S.", "Texto": "Quisiera información sobre planes con roaming internacional para viajar el mes próximo."},
+    {"ID": "TKT-112", "Canal": "Twitter", "Cliente": "Daniela B.", "Texto": "Me ofrecieron una promoción telefónica engañosa y me vino un cobro indebido. Pésimo engaño."},
+    {"ID": "TKT-113", "Canal": "App Store", "Cliente": "Gonzalo C.", "Texto": "La acreditación del saldo demoró un poco pero al final funcionó normal."},
+    {"ID": "TKT-114", "Canal": "Call Center", "Cliente": "Clara N.", "Texto": "El soporte telefónico te tiene 45 minutos en espera y luego te cortan la llamada."},
+    {"ID": "TKT-115", "Canal": "Sucursal", "Cliente": "Mateo K.", "Texto": "Llevo 4 años con el servicio de fibra óptica y la calidad siempre ha sido impecable y excelente."}
+]
+
+# ==============================================================================
+# BARRA LATERAL: FUENTES DE DATOS & PLANTILLAS
+# ==============================================================================
+st.sidebar.title("🗂️ Fuente de Datos")
+origen = st.sidebar.radio(
+    "Selecciona cómo cargar los datos:",
+    ["1. Dataset Demo (Telecom/Banca)", "2. Subir Archivo (CSV, JSON, TXT)", "3. Pegar Texto Masivo"]
+)
+
+df_a_procesar = None
+
+if origen == "1. Dataset Demo (Telecom/Banca)":
+    df_a_procesar = pd.DataFrame(DEMO_DATA)
+    st.sidebar.success(f"Cargados {len(df_a_procesar)} comentarios demo.")
+
+elif origen == "2. Subir Archivo (CSV, JSON, TXT)":
+    archivo = st.sidebar.file_uploader("Sube tu archivo de opiniones", type=["csv", "json", "txt"])
+    
+    # Botón para descargar plantilla de ejemplo para estudiantes
+    csv_plantilla = pd.DataFrame(DEMO_DATA[:5]).to_csv(index=False).encode('utf-8')
+    st.sidebar.download_button("📄 Descargar Plantilla CSV Ejemplo", data=csv_plantilla, file_name="plantilla_feedback.csv", mime="text/csv")
+    
+    if archivo is not None:
+        try:
+            if archivo.name.endswith(".csv"):
+                df_cargado = pd.read_csv(archivo)
+            elif archivo.name.endswith(".json"):
+                data_json = json.load(archivo)
+                df_cargado = pd.DataFrame(data_json)
+            elif archivo.name.endswith(".txt"):
+                lineas = [l.strip() for l in archivo.read().decode("utf-8").split("\n") if l.strip()]
+                df_cargado = pd.DataFrame({"Texto": lineas})
+
+            # Detectar o seleccionar la columna de texto
+            columnas = df_cargado.columns.tolist()
+            col_sugerida = next((c for c in columnas if c.lower() in ["texto", "feedback", "comentario", "review", "mensaje"]), columnas[0])
+            col_elegida = st.sidebar.selectbox("Columna que contiene los textos:", columnas, index=columnas.index(col_sugerida))
+            
+            df_cargado = df_cargado.rename(columns={col_elegida: "Texto"})
+            df_a_procesar = df_cargado
+            st.sidebar.success(f"Cargados {len(df_a_procesar)} registros exitosamente.")
+        except Exception as e:
+            st.sidebar.error(f"Error al leer archivo: {e}")
+
+elif origen == "3. Pegar Texto Masivo":
+    st.sidebar.markdown("**Pega comentarios (uno por renglón):**")
+    texto_pegado = st.sidebar.text_area("Lote de textos:", height=200, 
+        value="El servicio de internet es muy malo y se corta siempre.\nExcelente la atención por chat, solucionaron en minutos.\nQuiero saber cuándo vence mi factura.\nLa app móvil da error al loguearse, pésimo servicio.")
+    
+    if texto_pegado.strip():
+        lineas = [l.strip() for l in texto_pegado.split("\n") if l.strip()]
+        df_a_procesar = pd.DataFrame({"Texto": lineas})
+        st.sidebar.info(f"{len(lineas)} renglones detectados.")
+
+# ==============================================================================
+# PANTALLA PRINCIPAL
+# ==============================================================================
+st.title("🎯 Central de Inteligencia de Clientes (VoC Analytics)")
+st.markdown("Análisis semántico automatizado, detección de quejas críticas y matriz de priorización operativa.")
+
+if df_a_procesar is not None:
+    c_btn, c_prev = st.columns([1, 4])
+    with c_btn:
+        ejecutar = st.button("🚀 Ejecutar Análisis NLP", type="primary", use_container_width=True)
+    with c_prev:
+        st.caption(f"Registros listos para procesar: **{len(df_a_procesar)}**")
+
+    if ejecutar or "analisis_listo" in st.session_state:
+        st.session_state["analisis_listo"] = True
+        
+        # Procesamiento
+        data_dicts = df_a_procesar.to_dict(orient="records")
+        resultado = [procesar_texto_unitario(row) for row in data_dicts]
+        df_res = pd.DataFrame(resultado)
+
+        # --------------------------------------------------------------------------
+        # 1. KPIs EJECUTIVOS
+        # --------------------------------------------------------------------------
+        total = len(df_res)
+        n_pos = len(df_res[df_res["Sentimiento"] == "Positivo"])
+        n_neu = len(df_res[df_res["Sentimiento"] == "Neutro"])
+        n_neg = len(df_res[df_res["Sentimiento"] == "Negativo"])
+        n_crit = len(df_res[df_res["Prioridad"] == "ALTA (Crítico)"])
+        nss = int(((n_pos - n_neg) / total) * 100) if total > 0 else 0
+
+        st.divider()
+        k1, k2, k3, k4, k5 = st.columns(5)
+        k1.metric("Volumen Analizado", f"{total}")
+        k2.metric("Positivos 🟢", f"{n_pos} ({n_pos/total*100:.0f}%)" if total > 0 else "0")
+        k3.metric("Neutros 🟡", f"{n_neu} ({n_neu/total*100:.0f}%)" if total > 0 else "0")
+        k4.metric("Negativos 🔴", f"{n_neg} ({n_neg/total*100:.0f}%)" if total > 0 else "0")
+        k5.metric("🚨 Casos Críticos", f"{n_crit}", delta="Alerta Churn" if n_crit > 0 else "Controlado", delta_color="inverse")
+
+        # --------------------------------------------------------------------------
+        # 2. GRÁFICOS ANALÍTICOS (CON COLORES SEMÁNTICOS EXACTOS)
+        # --------------------------------------------------------------------------
+        st.markdown("### 📊 Tablero de Control Visual")
+        g1, g2 = st.columns([1, 1.4])
+
+        with g1:
+            st.subheader("1. Distribución Global de Sentimiento")
+            df_conteo = df_res["Sentimiento"].value_counts().reset_index()
+            df_conteo.columns = ["Sentimiento", "Total"]
+
+            chart_sent = alt.Chart(df_conteo).mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
+                x=alt.X('Sentimiento:N', sort=['Positivo', 'Neutro', 'Negativo'], title=None),
+                y=alt.Y('Total:Q', title='Cantidad de Comentarios'),
+                color=alt.Color('Sentimiento:N', scale=COLOR_SCALE, legend=None),
+                tooltip=['Sentimiento', 'Total']
+            ).properties(height=320)
+
+            st.altair_chart(chart_sent, use_container_width=True)
+
+        with g2:
+            st.subheader("2. Foco de Problemas por Departamento")
+            chart_dept = alt.Chart(df_res).mark_bar().encode(
+                y=alt.Y('Departamento:N', sort='-x', title='Área / Departamento'),
+                x=alt.X('count():Q', stack='normalize', axis=alt.Axis(format='%'), title='Composición (%)'),
+                color=alt.Color('Sentimiento:N', scale=COLOR_SCALE, title="Sentimiento"),
+                tooltip=['Departamento', 'Sentimiento', 'count()']
+            ).properties(height=320)
+
+            st.altair_chart(chart_dept, use_container_width=True)
+
+        # Gráfico adicional: Volumen por Canal
+        if "Canal" in df_res.columns and df_res["Canal"].nunique() > 1:
+            st.subheader("3. Rendimiento por Canal de Contacto")
+            chart_canal = alt.Chart(df_res).mark_bar().encode(
+                x=alt.X('Canal:N', title="Canal"),
+                y=alt.Y('count():Q', title="Volumen"),
+                color=alt.Color('Sentimiento:N', scale=COLOR_SCALE),
+                tooltip=['Canal', 'Sentimiento', 'count()']
+            ).properties(height=240)
+            st.altair_chart(chart_canal, use_container_width=True)
+
+        # --------------------------------------------------------------------------
+        # 3. NAVEGACIÓN Y AUDITORÍA DE DATOS
+        # --------------------------------------------------------------------------
+        st.markdown("### 💬 Detalle de Opiniones y Planes de Acción")
+        tab_neg, tab_pos, tab_neu, tab_todos, tab_mejoras = st.tabs([
+            f"🔴 Negativos ({n_neg})", 
+            f"🟢 Positivos ({n_pos})", 
+            f"🟡 Neutros ({n_neu})", 
+            "📋 Todos los Datos (Exportable)",
+            "💡 Plan de Mejoras Sugeridas"
+        ])
+
+        with tab_neg:
+            st.error("Comentarios de detractores requiriendo atención prioritaria:")
+            df_neg = df_res[df_res["Sentimiento"] == "Negativo"][["ID", "Canal", "Departamento", "Prioridad", "Texto", "Tokens_Neg"]]
+            st.dataframe(df_neg, use_container_width=True, hide_index=True)
+
+        with tab_pos:
+            st.success("Menciones de promotores (oportunidades para marketing y testimonios):")
+            df_pos = df_res[df_res["Sentimiento"] == "Positivo"][["ID", "Canal", "Departamento", "Texto", "Tokens_Pos"]]
+            st.dataframe(df_pos, use_container_width=True, hide_index=True)
+
+        with tab_neu:
+            st.warning("Consultas operativas o transaccionales sin carga emocional:")
+            df_neu = df_res[df_res["Sentimiento"] == "Neutro"][["ID", "Canal", "Departamento", "Texto"]]
+            st.dataframe(df_neu, use_container_width=True, hide_index=True)
+
+        with tab_todos:
+            st.dataframe(df_res[["ID", "Canal", "Cliente", "Departamento", "Sentimiento", "Prioridad", "Texto"]], use_container_width=True)
+            csv_output = df_res.to_csv(index=False).encode('utf-8')
+            st.download_button("📥 Descargar Resultados Completos (CSV)", data=csv_output, file_name="NLP_Analisis_Resultados.csv", mime="text/csv")
+
+        # --------------------------------------------------------------------------
+        # 4. PLAN DE MEJORAS BASADO EN LOS DATOS DETECTADOS
+        # --------------------------------------------------------------------------
+        with tab_mejoras:
+            st.subheader("🛠️ Matriz de Mejoras Operativas Sugeridas")
+            
+            dept_neg = df_res[df_res["Sentimiento"] == "Negativo"]["Departamento"].value_counts()
+            top_problema = dept_neg.index[0] if not dept_neg.empty else "Ninguno"
+
+            st.warning(f"**Área con mayor volumen de insatisfacción:** `{top_problema}` ({dept_neg.iloc[0] if not dept_neg.empty else 0} quejas)")
+
+            c_rec1, c_rec2 = st.columns(2)
+            with c_rec1:
+                st.markdown('''
+                #### 1. Facturación y Finanzas
+                * **Diagnóstico:** Reclamos recurrentes por cobros posteriores a cancelaciones y tarifas engañosas.
+                * **Solución de raíz:** Implementar confirmación de cancelación con token y congelamiento automático de débitos.
+                * **KPI a impactar:** Reducción de 25% en llamadas a reclamos de cobranzas.
+
+                #### 2. Canales Digitales y App
+                * **Diagnóstico:** Incidencias en operaciones de transferencia y cuelgues del sistema.
+                * **Solución de raíz:** Auditoría técnica en timeouts del API Gateway y monitor de estabilidad móvil.
+                * **KPI a impactar:** Aumento en calificación de App Store / Play Store.
+                ''')
+            with c_rec2:
+                st.markdown('''
+                #### 3. Red y Cuadrillas Técnicas
+                * **Diagnóstico:** Incumplimiento de visitas a domicilio e interrupción por clima.
+                * **Solución de raíz:** Geocercas con tracking en tiempo real del técnico (estilo Uber) y alertas SMS proactivas.
+                * **KPI a impactar:** Disminución del 40% en reclamos por citas técnicas perdidas.
+
+                #### 4. Canales de Atención (Call Center vs Chat)
+                * **Diagnóstico:** Esperas prolongadas en canal telefónico (más de 40 min).
+                * **Solución de raíz:** Desviar tráfico simple al bot de WhatsApp y habilitar opción de llamada devuelta (*Callback*).
+                * **KPI a impactar:** Reducción del TMO (Tiempo Medio de Operación).
+                ''')
+else:
+    st.info("👈 Por favor selecciona una fuente de datos en el menú lateral para comenzar.")
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- 10 · LOGISTICA Y MAPAS -->
+<section id="dashboard-geo" class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 10 · Dashboards Nivel PRO</span>
+      <h2 class="section-title">Logística & Supply Chain (GeoTracking 360)</h2>
+      <p class="lead-soft mt-2">
+        La visualización geoespacial es la columna vertebral del comercio electrónico, las flotas logísticas y el control de tráfico en tiempo real. 
+      </p>
+
+      <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+          <div class="p-4 rounded-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+            <h5 class="fw-bold text-danger"><i class="bi bi-x-circle-fill"></i> El Reto de Negocio</h5>
+            <p class="text-secondary small">Una compañía de distribución tiene más de 300 camiones rodando. Ver tablas de Excel con coordenadas no ayuda al gerente de operaciones a prever cuellos de botella ni identificar qué unidades tienen averías.</p>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="p-4 rounded-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+            <h5 class="fw-bold text-success"><i class="bi bi-check-circle-fill"></i> La Solución Python</h5>
+            <p class="text-secondary small">Construiremos un <strong>Gemelo Digital Logístico</strong>. Usaremos mapas interactivos donde cada vehículo es un punto geolocalizado: el color indicará su estatus (Verde = Ok, Rojo = Avería) y el tamaño indicará el valor económico de su carga.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info border-0 shadow-sm mt-3" role="alert" style="background-color: rgba(13, 110, 253, 0.05);">
+        <h5 class="alert-heading fw-bold"><i class="bi bi-tools"></i> Cómo ejecutar esto en tu VS Code local:</h5>
+        <ol class="text-secondary mb-0">
+          <li><strong>Instala las dependencias:</strong> En tu terminal ejecuta <code>python -m pip install streamlit pandas numpy altair</code>.</li>
+          <li><strong>Crea un archivo:</strong> Copia el código de abajo y guárdalo como <code>app_geo.py</code>.</li>
+          <li><strong>Lanza el servidor:</strong> Ejecuta <code>python -m streamlit run app_geo.py</code>.</li>
+        </ol>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <h4 class="h5 mb-3 fw-bold text-primary"><i class="bi bi-code-square"></i> Código Fuente (app_geo.py)</h4>
+          <pre><code class="language-python">import streamlit as st
+import pandas as pd
+import numpy as np
+import altair as alt
+
+st.set_page_config(page_title="Supply Chain & Fleet Control", layout="wide", page_icon="🚚")
+
+# ==============================================================================
+# SIMULADOR DE GEMELO DIGITAL LOGÍSTICO (DATA SINTÉTICA)
+# ==============================================================================
+@st.cache_data
+def generar_flota():
+    np.random.seed(101)
+    n_rutas = 300
+    # Centro de Distribución: Distrito Nacional (tierra firme)
+    lat_base, lon_base = 18.4800, -69.9300 
+    
+    data = pd.DataFrame({
+        "ID_Ruta": [f"RT-{i:04d}" for i in range(1, n_rutas+1)],
+        "Vehiculo": np.random.choice(["Camión Frigorífico", "Furgón Ligero", "Moto Delivery"], n_rutas, p=[0.2, 0.5, 0.3]),
+        "Conductor": np.random.choice(["Juan P.", "Miguel R.", "Luis S.", "Ana M.", "Carlos T."], n_rutas),
+        "lat": np.random.normal(lat_base, 0.02, n_rutas), # Reducida la desviación para no caer al mar
+        "lon": np.random.normal(lon_base, 0.02, n_rutas),
+        "Estatus": np.random.choice(["Entregado", "En Ruta", "Demorado", "Alerta Mecánica"], n_rutas, p=[0.60, 0.25, 0.10, 0.05]),
+        "Satisfaccion_Cliente": np.random.randint(1, 6, n_rutas),
+        "Valor_Carga_USD": np.random.uniform(500, 15000, n_rutas)
+    })
+    
+    # Asignar colores Hex según estatus para el Mapa de Streamlit
+    color_map = {
+        "Entregado": "#22c55e",      # Verde
+        "En Ruta": "#3b82f6",        # Azul
+        "Demorado": "#f59e0b",       # Amarillo
+        "Alerta Mecánica": "#ef4444" # Rojo
+    }
+    data["Color"] = data["Estatus"].map(color_map)
+    data["Size"] = data["Valor_Carga_USD"] / 100  # Puntos más grandes = más dinero
+    return data
+
+df_geo = generar_flota()
+
+# ==============================================================================
+# BARRA LATERAL (CONTROL TOWER)
+# ==============================================================================
+st.sidebar.title("📡 Torre de Control")
+filtro_estatus = st.sidebar.multiselect(
+    "Filtrar por Estatus Operativo:", 
+    options=df_geo["Estatus"].unique(),
+    default=["En Ruta", "Demorado", "Alerta Mecánica"]
+)
+
+filtro_vehiculo = st.sidebar.selectbox("Tipo de Flota:", ["Toda la Flota"] + list(df_geo["Vehiculo"].unique()))
+
+# Aplicar Filtros
+df_filtrado = df_geo[df_geo["Estatus"].isin(filtro_estatus)]
+if filtro_vehiculo != "Toda la Flota":
+    df_filtrado = df_filtrado[df_filtrado["Vehiculo"] == filtro_vehiculo]
+
+# ==============================================================================
+# PANEL PRINCIPAL
+# ==============================================================================
+st.title("🚚 Centro de Operaciones y GeoTracking")
+st.markdown("Monitoreo en tiempo real de la cadena de suministro, estatus de entregas y riesgo financiero en tránsito.")
+
+# KPIs Ejecutivos
+c1, c2, c3, c4 = st.columns(4)
+c1.metric("Unidades en Pantalla", len(df_filtrado))
+c2.metric("Valor en Tránsito (Riesgo)", f"${df_filtrado[df_filtrado['Estatus'] != 'Entregado']['Valor_Carga_USD'].sum():,.0f}")
+alertas = len(df_filtrado[df_filtrado['Estatus'] == 'Alerta Mecánica'])
+c3.metric("Alertas Críticas Mecánicas 🚨", alertas, delta="Requiere Grúa" if alertas > 0 else "Normal", delta_color="inverse")
+c4.metric("CSAT (Satisfacción Promedio)", f"{df_geo['Satisfaccion_Cliente'].mean():.1f} / 5.0")
+
+st.divider()
+
+col_mapa, col_datos = st.columns([2, 1])
+
+with col_mapa:
+    st.subheader("📍 Radar Georreferenciado Activo")
+    # Mapeo avanzado usando st.map con soporte de colores semánticos
+    st.map(
+        df_filtrado,
+        latitude="lat",
+        longitude="lon",
+        color="Color",
+        size="Size",
+        zoom=10,
+        use_container_width=True
+    )
+    st.caption("🔴 Alerta Mecánica | 🟡 Demorado | 🔵 En Ruta | 🟢 Entregado (El tamaño del punto refleja el valor en US$)")
+
+with col_datos:
+    st.subheader("📊 Desempeño por Estatus")
+    
+    # Gráfico de Donut de Estatus
+    chart = alt.Chart(df_filtrado).mark_arc(innerRadius=40).encode(
+        theta=alt.Theta(field="Estatus", aggregate="count"),
+        color=alt.Color(field="Estatus", type="nominal", scale=alt.Scale(
+            domain=["Entregado", "En Ruta", "Demorado", "Alerta Mecánica"],
+            range=["#22c55e", "#3b82f6", "#f59e0b", "#ef4444"]
+        )),
+        tooltip=['Estatus', 'count()']
+    ).properties(height=280)
+    st.altair_chart(chart, use_container_width=True)
+    
+    # Tabla de Top Conductores
+    st.markdown("**🏆 Top Conductores (Efectividad)**")
+    top_drivers = df_geo[df_geo["Estatus"] == "Entregado"].groupby("Conductor").size().sort_values(ascending=False).reset_index(name="Entregas Exitosas")
+    st.dataframe(top_drivers, hide_index=True, use_container_width=True)
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- 11 · AGENDA DE 120 MINUTOS -->
+<!-- 11 · AGENDA DE 120 MINUTOS -->
+<section class="section-pad">
+  <div class="container">
+    <div class="cyber-river-card">
+      <span class="section-kicker">// 11 · Estructura Pedagógica</span>
+
+      <h2 class="section-title">Cronograma de la Masterclass (120 Minutos Exactos)</h2>
+      <div class="table-responsive mt-3">
+        <table class="table table-borderless table-seniority">
+          <thead>
+            <tr>
+              <th>Tiempo</th>
+              <th>Bloque Temático</th>
+              <th>Acción del Instructor</th>
+              <th>Entregable del Estudiante</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>00 - 15m</strong></td>
+              <td>Contexto, Mercado Global y .venv</td>
+              <td>Explicación del auge de la IA y verificación del entorno virtual.</td>
+              <td>Terminal con Python 3.12 y librerías instaladas.</td>
+            </tr>
+            <tr>
+              <td><strong>15 - 40m</strong></td>
+              <td>Fundamentos, Variables y Operadores</td>
+              <td>Ejecución de variables dinámicas, tipado fuerte y F-strings de precisión.</td>
+              <td>Primer script con operaciones aritméticas e I/O.</td>
+            </tr>
+            <tr>
+              <td><strong>40 - 65m</strong></td>
+              <td>Lógica de Decisión, Bucles y Funciones</td>
+              <td>Implementación de <code>if-else</code>, <code>match-case</code> y ciclo <code>for</code>.</td>
+              <td>Algoritmo de aprobación crediticia modularizado.</td>
+            </tr>
+            <tr>
+              <td><strong>65 - 90m</strong></td>
+              <td>Ingesta Multifuente & Visualización (ETL)</td>
+              <td>Construcción de gráficos de Pareto, SMA y matrices de correlación.</td>
+              <td>Pipeline analítico y visualización exportada a PNG.</td>
+            </tr>
+            <tr>
+              <td><strong>90 - 110m</strong></td>
+              <td>Despliegue del Dashboard Streamlit</td>
+              <td>Puesta en marcha en vivo de <code>app.py</code> con los 4 módulos financieros.</td>
+              <td>Dashboard interactivo ejecutándose en el navegador local.</td>
+            </tr>
+            <tr>
+              <td><strong>110 - 120m</strong></td>
+              <td>Q&A y Cierre</td>
+              <td>Ruta de aprendizaje profesional y resolución de dudas técnicas.</td>
+              <td>Repositorio listo para portafolio laboral.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-md-7">
+        <div class="fw-bold mb-1" style="font-family:'Space Grotesk',sans-serif;">
+          <img src="https://yt3.ggpht.com/dBtfAuGHqxdjuP-d7xnSjESh5wV2vjhYiTebxqS6XzAYB-tdu0SyLZQrE1XVPGfqtqqIZdTUAUc=s108-c-k-c0x00ffffff-no-rj" alt="Foto Ing. Juancito Peña">
+          🐍 Manual de Python — De Cero a tu Primer Algoritmo
+        </div>
+        <div class="small" style="color:#b9cee2;">
+          Material de alto rendimiento elaborado por el <strong>Ing. Juancito Peña</strong>
+        </div>
+      </div>
+      <div class="col-md-5 text-md-end">
+        <div class="social-links d-flex justify-content-md-end gap-4 mb-3">
+          <a href="https://www.youtube.com/@JuancitoDevV" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a>
+          <a href="https://github.com/JUANCITOPENA" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+          <a href="https://www.linkedin.com/in/juancitope%C3%B1a/" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.instagram.com/juancito.pena.v/" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.facebook.com/juancito.p.v" target="_blank" title="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://twitter.com/JuancitoPenaV" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+        </div>
+        <span class="small" style="color:#b9cee2;">Masterclass Python Experience · Edición Definitiva 2026</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS EXTERNOS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+<!-- SCRIPT MAESTRO DE INICIALIZACIÓN Y RENDER -->
+<script>
+/* 1. Efecto de Escritura en la Terminal del Hero */
+const terminalLines = [
+  { prompt: ">>> ", text: "print('¡Hola, bienvenido a la Masterclass!')" },
+  { prompt: "", text: "¡Hola, bienvenido a la Masterclass!" },
+  { prompt: ">>> ", text: "def dominar_python():" },
+  { prompt: "... ", text: "    return '¡Todo es posible con analítica e IA!'" },
+  { prompt: ">>> ", text: "dominar_python()" },
+  { prompt: "", text: "'¡Todo es posible con analítica e IA!'" }
+];
+const terminalBody = document.getElementById('terminalBody');
+let li = 0, ci = 0;
+
+function typeTerminal() {
+  if (li >= terminalLines.length) return;
+  const current = terminalLines[li];
+  if (ci === 0) {
+    const div = document.createElement('div');
+    div.className = 'line';
+    div.innerHTML = '<span class="terminal-prompt">' + current.prompt + '</span><span class="typed"></span><span class="caret">&nbsp;</span>';
+    terminalBody.appendChild(div);
+  }
+  const lineEl = terminalBody.lastChild.querySelector('.typed');
+  if (ci < current.text.length) {
+    lineEl.textContent += current.text.charAt(ci);
+    ci++;
+    setTimeout(typeTerminal, current.prompt ? 25 : 10);
+  } else {
+    terminalBody.lastChild.querySelector('.caret').remove();
+    li++; ci = 0;
+    setTimeout(typeTerminal, 350);
+  }
+}
+typeTerminal();
+
+/* 2. Base de Datos de los 19 Temas de Fundamentos Técnicos */
+const topics = [
+  { id: "tipos-datos", icon: "bi-boxes", title: "Tipos de Datos Primitivos y Colecciones",
+    lead: "En Python, <strong>todo elemento es un objeto</strong>. Tipos numéricos: <code>int</code> (enteros de precisión arbitraria), <code>float</code> (decimales), <code>complex</code>. Texto: <code>str</code>. Lógicos: <code>bool</code>. Nulos: <code>NoneType</code>. Y colecciones dinámicas: <code>list</code>, <code>tuple</code>, <code>dict</code> y <code>set</code>.",
+    examples: [
+      { label: "Primitivos y Nulo", code: `# 1. PLANTEAMIENTO: Definir y verificar los tipos de datos más básicos.
+# 2. CONTEXTO: En cualquier sistema, necesitamos guardar números, texto y estados.
+# 3. DEFINICIONES: int (entero), float (decimal), str (texto), bool (booleano), NoneType (vacío).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+entero = 1000000          # Variable numérica sin decimales (int)
+decimal = 3.1416          # Variable numérica con decimales (float)
+texto = "Finanzas"        # Cadena de caracteres (str)
+booleano = True           # Variable de estado lógico (bool)
+vacio = None              # Representa la ausencia de valor (NoneType)
+
+# Imprimimos en consola los tipos de datos reales en memoria
+print(type(decimal), type(vacio))`, note: "type() devuelve la clase real de cualquier objeto en memoria RAM." },
+      { label: "Colecciones", code: `# 1. PLANTEAMIENTO: Guardar múltiples valores en distintas estructuras.
+# 2. CONTEXTO: Agrupar datos de un sistema, como los artículos de un carrito de compras.
+# 3. DEFINICIONES: list (mutable), tuple (inmutable), dict (clave-valor), set (únicos).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Lista: Permite agregar o quitar elementos (Mutable)
+lista = [1, 2, "tres"]        
+# Tupla: Una vez creada, no se puede alterar (Inmutable)
+tupla = (1, 2, "tres")        
+# Diccionario: Búsqueda rápida por clave (Ej. ID del cliente)
+dict_cli = {"id": 101}       
+# Conjunto: Automáticamente elimina datos duplicados
+conjunto = {1, 2, 2, 3}       
+
+print("Conjunto limpio:", conjunto)`, note: "Usa tuplas para datos fijos inmutables y diccionarios para lectura instantánea O(1)." },
+      { label: "Validación isinstance()", code: `# 1. PLANTEAMIENTO: Asegurar el tipo de dato antes de procesarlo.
+# 2. CONTEXTO: Validar montos de transacciones antes de hacer cálculos financieros.
+# 3. DEFINICIONES: isinstance() verifica si una variable pertenece a una clase específica.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+monto = 5000.50
+
+# Verificamos si 'monto' es estrictamente un número de tipo 'float'
+if isinstance(monto, float):
+    # Si la validación es exitosa, se ejecuta este bloque
+    print("Dato de punto flotante validado:", monto)`, note: "isinstance() es la forma preferida de comprobar tipos respetando la jerarquía de herencia." }
+    ]
+  },
+  { id: "variables", icon: "bi-tag", title: "Variables y Asignación Dinámica",
+    lead: "Las variables son etiquetas simbólicas que apuntan a posiciones de memoria. No exigen declaración previa de tipos.",
+    examples: [
+      { label: "Reasignación Dinámica", code: `# 1. PLANTEAMIENTO: Demostrar cómo una variable cambia de tipo en ejecución.
+# 2. CONTEXTO: En Python, las variables pueden reutilizarse para distintos propósitos.
+# 3. DEFINICIONES: Asignación (=) vincula un valor a un nombre simbólico.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Creamos una variable guardando un número entero
+balance = 50000
+
+# Reasignamos la MISMA variable, pero ahora guardando texto (str)
+balance = "Cincuenta mil"
+
+# El programa no da error, adopta el nuevo tipo automáticamente
+print("Nuevo balance:", balance)`, note: "Una variable puede cambiar de tipo dinámicamente en tiempo de ejecución." },
+      { label: "Asignación Múltiple (Swap)", code: `# 1. PLANTEAMIENTO: Intercambiar valores entre dos variables eficientemente.
+# 2. CONTEXTO: Muy útil en algoritmos de ordenamiento o reasignación de estados.
+# 3. DEFINICIONES: Swap es el intercambio de punteros en memoria RAM sin variables temporales.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Asignación de dos variables en una sola línea (Desempaquetado)
+x, y = 100, 200
+
+# Intercambiamos los valores directamente
+x, y = y, x  
+
+print(f"Nuevo valor X: {x}, Nuevo valor Y: {y}")`, note: "El 'swap' en una sola línea es un patrón sintáctico elegante y nativo de Python." },
+      { label: "Constantes por Convención", code: `# 1. PLANTEAMIENTO: Definir valores que nunca deben cambiar en el programa.
+# 2. CONTEXTO: Configurar tasas de impuestos o límites legales globales.
+# 3. DEFINICIONES: En Python no hay 'const', se usan letras MAYÚSCULAS por convención.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Definimos la constante en mayúsculas para alertar a otros programadores
+TASA_MORA = 0.05  
+
+# Función que utiliza la constante para un cálculo
+def calcular_mora(monto):
+    return monto * TASA_MORA
+
+print("Mora calculada:", calcular_mora(1000))`, note: "Python no tiene la palabra reservada 'const'. Las mayúsculas indican que no debe modificarse." }
+    ]
+  },
+  { id: "op-matematicos", icon: "bi-plus-slash-minus", title: "Operadores Matemáticos y Asignación Compuesta",
+    lead: "Suma (<code>+</code>), Resta (<code>-</code>), Multiplicación (<code>*</code>), División decimal (<code>/</code>), División entera (<code>//</code>), Módulo (<code>%</code>), Potencia (<code>**</code>).",
+    examples: [
+      { label: "Calculadora Completa (ITBIS/Porciento)", code: `# 1. PLANTEAMIENTO: Realizar cálculos financieros y matemáticos estándar.
+# 2. CONTEXTO: Una caja registradora que calcula subtotales, impuestos y promedios.
+# 3. DEFINICIONES: + (suma), - (resta), * (mult), / (div), ** (potencia), % (módulo). ITBIS es porcentaje.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+subtotal = 1000
+descuento = 200
+
+suma = subtotal + descuento       # 1200
+resta = subtotal - descuento      # 800
+multiplicacion = subtotal * 2     # 2000
+division_entera = subtotal // 3   # 333 (Sin decimales)
+potencia = 10 ** 2                # 100
+promedio = (subtotal + descuento) / 2 # 600.0 (Uso de PEMDAS)
+itbis = subtotal * 0.18           # 18% del valor
+
+print(f"Suma: {suma}, Resta: {resta}, Promedio: {promedio}, ITBIS: {itbis}")`, note: "El operador módulo (%) es clave para algoritmos cíclicos y determinar paridad." },
+      { label: "Potencia y Strings", code: `# 1. PLANTEAMIENTO: Uso avanzado del operador de multiplicación (*).
+# 2. CONTEXTO: Formatear reportes de texto y cálculos de ingeniería.
+# 3. DEFINICIONES: ** eleva un número a una potencia. * en texto lo repite N veces.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Elevamos 2 a la octava potencia (Matemática pura)
+potencia = 2 ** 8  # 256
+
+# Multiplicamos un texto para crear un separador visual largo
+separador = "=" * 25
+
+print(separador)
+print(f"2 elevado a la 8 es igual a {potencia}")
+print(separador)`, note: "El operador '*' multiplica números o repite secuencias de texto." },
+      { label: "Asignación Compuesta", code: `# 1. PLANTEAMIENTO: Actualizar rápidamente un valor acumulado.
+# 2. CONTEXTO: Sumar abonos parciales al saldo de un cliente.
+# 3. DEFINICIONES: +=, -=, //= aplican la operación y guardan en la misma variable.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+saldo = 1000
+
+# Equivalente a: saldo = saldo + 500
+saldo += 500   
+print("Saldo tras depósito:", saldo)
+
+# Equivalente a: saldo = saldo // 2
+saldo //= 2   
+print("Saldo tras dividir a la mitad:", saldo)`, note: "Permite operar y guardar el resultado de manera condensada." }
+    ]
+  },
+  { id: "op-comparacion", icon: "bi-arrows-collapse", title: "Operadores de Comparación (Relacionales)",
+    lead: "Evalúan condiciones retornando booleanos: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>.",
+    examples: [
+      { label: "Igualdad", code: `# 1. PLANTEAMIENTO: Comparar dos valores para ver si son equivalentes.
+# 2. CONTEXTO: Validar si la clave ingresada por el usuario es igual a la de la BD.
+# 3. DEFINICIONES: == (Igualdad), != (Diferente). Retornan True o False.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Comparación numérica (Ignora si uno tiene decimal .0)
+print("10 == 10.0 es:", 10 == 10.0)      # True 
+
+# Comparación de texto (Es estricta con mayúsculas/minúsculas)
+print("'Ana' == 'ana' es:", "Ana" == "ana")  # False 
+
+# Verificación de desigualdad
+print("Claves diferentes:", "admin1" != "12345") # True`, note: "== compara valor semántico, no tipo de dato estricto en números." },
+      { label: "Comparación Encadenada", code: `# 1. PLANTEAMIENTO: Validar si un número está dentro de un rango específico.
+# 2. CONTEXTO: Clasificar el score crediticio de un cliente bancario.
+# 3. DEFINICIONES: a <= x <= b es una sintaxis nativa de Python similar a las matemáticas.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+score = 750
+
+# Validamos en una sola línea matemática (sin usar 'and')
+if 700 <= score <= 850:
+    print("Cliente con Score crediticio óptimo")
+else:
+    print("Score fuera del rango aceptado")`, note: "Python permite encadenar comparaciones idéntico al lenguaje matemático formal." },
+      { label: "Estructuras", code: `# 1. PLANTEAMIENTO: Comparar colecciones de datos enteras.
+# 2. CONTEXTO: Validar si dos listas de transacciones son exactamente iguales.
+# 3. DEFINICIONES: == en listas compara recursivamente cada elemento en orden.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+lista_a = [1, 2, 3]
+lista_b = [1, 2, 3]
+lista_desordenada = [3, 2, 1]
+
+# Ambas listas tienen los mismos elementos en el mismo orden
+print("¿A y B son iguales?:", lista_a == lista_b)  # True
+
+# El orden IMPORTA en las listas
+print("¿A es igual a la desordenada?:", lista_a == lista_desordenada) # False`, note: "Evalúa internamente los elementos contenidos de manera recursiva." }
+    ]
+  },
+  { id: "op-identidad", icon: "bi-fingerprint", title: "Operadores de Identidad (is) y Membresía (in)",
+    lead: "<code>==</code> compara <strong>valores</strong>; <code>is</code> compara <strong>dirección exacta en la memoria RAM</strong>. Por otro lado, <code>in</code> verifica la existencia de elementos dentro de secuencias.",
+    examples: [
+      { label: "Identidad ('is' vs '==')", code: `# 1. PLANTEAMIENTO: Diferenciar entre "valor igual" y "objeto idéntico en RAM".
+# 2. CONTEXTO: Optimización y manejo de punteros en bases de datos.
+# 3. DEFINICIONES: is verifica que dos variables apunten a la MISMA posición de memoria.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+a = [1, 2]
+b = [1, 2]
+
+# == valida que por dentro se vean igual
+print("Tienen los mismos datos:", a == b)  # True 
+
+# is valida que sean la misma casa física
+print("Son el mismo objeto en memoria:", a is b)  # False 
+
+# La forma correcta de validar vacíos absolutos
+variable_nula = None
+print("¿Es nula?:", variable_nula is None) # True`, note: "Usa siempre 'is' al comparar con 'None' (ej. if variable is None:)." },
+      { label: "Membresía en Secuencias", code: `# 1. PLANTEAMIENTO: Buscar un valor dentro de un grupo de forma instantánea.
+# 2. CONTEXTO: Verificar si el producto buscado está en el inventario activo.
+# 3. DEFINICIONES: in (verdadero si existe dentro), not in (verdadero si no existe).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+frutas = ["mango", "pera", "manzana"]
+
+# Busca directamente en la lista delegando a C
+print("¿Hay mango?:", "mango" in frutas)   # True
+
+# Valida la ausencia de un elemento
+print("¿No hay uva?:", "uva" not in frutas)  # True`, note: "El operador 'in' delega la búsqueda a rutinas de C a máxima velocidad." },
+      { label: "Membresía en Dicts", code: `# 1. PLANTEAMIENTO: Buscar dentro de estructuras clave-valor.
+# 2. CONTEXTO: Validar si un JSON recibido de la API contiene el campo "nombre".
+# 3. DEFINICIONES: Por defecto, 'in' busca en las llaves (keys) del diccionario.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+cliente = {"id": 1, "nombre": "Juancito"}
+
+# Verificamos si la llave "nombre" existe en la estructura
+print("¿Tiene llave nombre?:", "nombre" in cliente)       # True 
+
+# Verificamos si un valor específico existe dentro de los valores
+print("¿El cliente es Juancito?:", "Juancito" in cliente.values()) # True`, note: "Buscar en claves de un diccionario toma tiempo O(1) constante." }
+    ]
+  },
+  { id: "op-logicos", icon: "bi-diagram-2", title: "Operadores Lógicos (and, or, not) y Truthiness",
+    lead: "Permiten evaluar múltiples condiciones combinadas con evaluación por cortocircuito. En Python, elementos vacíos o ceros se evalúan como <code>False</code> (Falsy).",
+    examples: [
+      { label: "Login Estricto (and)", code: `# 1. PLANTEAMIENTO: Validar múltiples condiciones obligatorias.
+# 2. CONTEXTO: Sistema de Login: Usuario Y Clave deben ser correctos.
+# 3. DEFINICIONES: and requiere que AMBOS lados sean verdaderos (Cortocircuito).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+user_input = "admin"
+pass_input = "12345"
+
+# Si el usuario falla, Python NUNCA evalúa la clave (Cortocircuito)
+acceso_permitido = (user_input == "admin") and (pass_input == "12345")
+
+print("¿Login exitoso?:", acceso_permitido)`, note: "Si la primera condición de un 'and' es falsa, el resto nunca se evalúa." },
+      { label: "Acceso Flexible (or)", code: `# 1. PLANTEAMIENTO: Dar acceso si se cumple CUALQUIERA de las reglas.
+# 2. CONTEXTO: Entrada al cine: tener boleto O estar en la lista VIP.
+# 3. DEFINICIONES: or retorna True con que un solo lado sea verdadero.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+tiene_boleto = False
+es_vip = True
+
+# Evalúa izquierda a derecha; si encuentra un True, se detiene y aprueba
+puede_entrar = tiene_boleto or es_vip
+
+print("¿Puede entrar al evento?:", puede_entrar)  # True`, note: "'or' retorna el primer elemento evaluado como verdadero." },
+      { label: "Bloqueos lógicos (not)", code: `# 1. PLANTEAMIENTO: Invertir valores o verificar colecciones vacías.
+# 2. CONTEXTO: Validar que NO haya errores antes de procesar una nómina.
+# 3. DEFINICIONES: not convierte True a False (y viceversa). En colecciones, [] es Falsy.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+errores_nomina = []  # Lista vacía (evalúa como Falso por naturaleza)
+
+# "not False" se vuelve True. Es decir, "Si NO hay errores..."
+if not errores_nomina:
+    print("Nómina limpia. Procediendo al pago masivo.")
+else:
+    print("Hay errores, revisar detalles.")`, note: "'not' sobre una colección vacía es la forma idiomática y limpia de validar existencia." }
+    ]
+  },
+  { id: "if-else", icon: "bi-signpost", title: "Estructuras Condicionales: if, elif, else y Ternarios",
+    lead: "Bifurcaciones controladas en el flujo del programa basadas en indentación estricta de 4 espacios.",
+    examples: [
+      { label: "Login de Administración (if-elif-else)", code: `# 1. PLANTEAMIENTO: Tomar decisiones jerárquicas exclusivas.
+# 2. CONTEXTO: Rutear a los usuarios de un sistema según su nivel de privilegio.
+# 3. DEFINICIONES: if (primera regla), elif (regla alternativa), else (por defecto).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+rol_usuario = "admin"
+
+if rol_usuario == "admin":
+    # Regla 1: Acceso a todo
+    print("Cargando Panel Maestro.")
+elif rol_usuario == "editor":
+    # Regla 2: Entra aquí y SALTA el resto
+    print("Cargando Modo Edición Limitado.")
+else:
+    # Regla por Defecto: Para visitantes u otros
+    print("Acceso solo de lectura.")`, note: "El flujo se interrumpe al encontrar la primera condición satisfecha." },
+      { label: "If Anidado", code: `# 1. PLANTEAMIENTO: Hacer validaciones secundarias solo si la primera es exitosa.
+# 2. CONTEXTO: Proteger una transferencia bancaria (Primero saldo, luego token).
+# 3. DEFINICIONES: Bloques if dentro de otros bloques if (indentados).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+saldo = 1000
+token_valido = True
+
+# Primera barrera de validación
+if saldo >= 500:
+    print("Fondos suficientes.")
+    
+    # Segunda barrera (Anidada 4 espacios adentro)
+    if token_valido: 
+        print("Token aceptado. Transfiriendo...")
+else:
+    print("Fondos insuficientes.")`, note: "Estructura jerárquica para validaciones secundarias dependientes." },
+      { label: "Operador Ternario", code: `# 1. PLANTEAMIENTO: Asignar un valor en una sola línea según una condición.
+# 2. CONTEXTO: Mostrar rápidamente el estado visual (Rojo/Verde) de una factura.
+# 3. DEFINICIONES: [Valor V] if [Condición] else [Valor F]
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+saldo = 1200
+
+# Se evalúa en la misma línea de la asignación
+estado = "Solvente (Verde)" if saldo >= 1000 else "Alerta (Rojo)"
+
+print("Estado del cliente:", estado)`, note: "Permite asignaciones condicionales directas en una única línea." }
+    ]
+  },
+  { id: "switch", icon: "bi-signpost-2", title: "Pattern Matching (match - case)",
+    lead: "Introducido en Python 3.10+, reemplaza a los bloques switch convencionales y permite validar estructuras complejas.",
+    examples: [
+      { label: "Días de la Semana (Match Básico)", code: `# 1. PLANTEAMIENTO: Evaluar contra valores exactos en lugar de cadenas de ifs.
+# 2. CONTEXTO: Traducción de códigos numéricos de días a texto legible.
+# 3. DEFINICIONES: match (evalúa la variable), case (cada escenario posible).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+dia_codigo = 2
+
+match dia_codigo:
+    case 1: 
+        print("Lunes: Inicio de operaciones")
+    case 2: 
+        print("Martes: Reunión de ventas")
+    case _: 
+        # El guion bajo (_) atrapa todo lo que no coincidió arriba (default)
+        print("Día no registrado o es fin de semana")`, note: "'case _' actúa como la cláusula 'default' para atrapar cualquier excepción." },
+      { label: "Agrupación OR (|) (Meses)", code: `# 1. PLANTEAMIENTO: Agrupar múltiples casos que comparten el mismo resultado.
+# 2. CONTEXTO: Determinar si un mes tiene 30 o 31 días.
+# 3. DEFINICIONES: La tubería | actúa como un operador OR lógico dentro del case.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+mes = "Abril"
+
+match mes:
+    # Si es cualquiera de estos, ejecuta este bloque
+    case "Enero" | "Marzo" | "Mayo":
+        print("31 Días")
+    case "Abril" | "Junio" | "Septiembre":
+        print("30 Días")
+    case _:
+        print("Mes diferente o Febrero")`, note: "El operador | agrupa casos, limpiando drásticamente el código." },
+      { label: "Emulación con Diccionario (Pre-3.10)", code: `# 1. PLANTEAMIENTO: Como Python no tenía switch antes, usamos diccionarios.
+# 2. CONTEXTO: Sistemas legacy o respuestas ultrarrápidas O(1) de APIs.
+# 3. DEFINICIONES: dict.get(clave, valor_por_defecto)
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Creamos el mapa de enrutamiento (Switch dict)
+estados_http = {
+    200: "OK", 
+    404: "No Encontrado",
+    500: "Error del Servidor"
+}
+
+codigo = 404
+# Buscamos el código 404. Si no existe, retorna "Desconocido"
+print("Resultado HTTP:", estados_http.get(codigo, "Desconocido"))`, note: "Patrón clásico pre-Python 3.10 altamente eficiente." }
+    ]
+  },
+  { id: "for", icon: "bi-arrow-repeat", title: "Bucle for e Iteración de Secuencias",
+    lead: "En Python, el bucle for es intrínsecamente un 'for-each' que extrae elementos directamente de un iterable sin requerir contadores manuales.",
+    examples: [
+      { label: "Conteo (Naturales y Pares)", code: `# 1. PLANTEAMIENTO: Iterar rangos numéricos matemáticos fijos.
+# 2. CONTEXTO: Paginación de reportes o algoritmos de repetición fija.
+# 3. DEFINICIONES: range(inicio, fin, salto). El fin es exclusivo.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+print("Naturales del 1 al 3:")
+for i in range(1, 4):  # Llega hasta 3
+    print(i)
+
+print("Números Pares hasta el 10:")
+# Inicia en 2, fin en 11, salta de a 2
+for par in range(2, 11, 2):
+    print(par)`, note: "range() produce secuencias bajo demanda ahorrando memoria RAM." },
+      { label: "Buscador de Números Primos", code: `# 1. PLANTEAMIENTO: Encontrar números que solo se dividan por 1 y por sí mismos.
+# 2. CONTEXTO: Algoritmia clásica, criptografía y análisis de secuencias.
+# 3. DEFINICIONES: Uso de bucles anidados y ruptura con break.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+limite = 7
+print(f"Buscando primos hasta {limite}:")
+
+for num in range(2, limite + 1):
+    es_primo = True
+    
+    # Validar divisibilidad
+    for divisor in range(2, num):
+        if num % divisor == 0:
+            es_primo = False
+            break # No es primo, abortar sub-bucle
+            
+    if es_primo:
+        print(f"-> {num} es Primo")`, note: "Los bucles anidados permiten analizar combinaciones O(N^2)." },
+      { label: "enumerate() y items()", code: `# 1. PLANTEAMIENTO: Recorrer una lista sabiendo en qué posición exacta estamos.
+# 2. CONTEXTO: Imprimir un top 10 de clientes con su rango (1, 2, 3...).
+# 3. DEFINICIONES: enumerate(iterable, inicio) devuelve índice y valor juntos.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+clientes_vip = ["Empresa A", "Empresa B", "Empresa C"]
+
+# Extraemos el índice (idx) iniciando en 1, y el valor (cliente)
+for idx, cliente in enumerate(clientes_vip, 1):
+    print(f"Top {idx}: {cliente}")`, note: "enumerate() entrega simultáneamente el índice numérico y el valor." }
+    ]
+  },
+  { id: "while", icon: "bi-arrow-clockwise", title: "Bucle while, break, continue y while-else",
+    lead: "Repite un bloque de código mientras su condición permanezca verdadera.",
+    examples: [
+      { label: "Tabla de Multiplicar (while)", code: `# 1. PLANTEAMIENTO: Ejecutar lógica manual repetitiva controlando el índice.
+# 2. CONTEXTO: Mostrar la tabla del 5 con control manual de parada.
+# 3. DEFINICIONES: while evalúa una condición antes de cada ciclo.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+tabla = 5
+contador = 1
+
+print(f"Tabla del {tabla}:")
+# Mientras el contador sea menor o igual a 5
+while contador <= 5:
+    print(f"{tabla} x {contador} = {tabla * contador}")
+    # CRÍTICO: Aumentamos el contador para no crear un bucle infinito
+    contador += 1`, note: "Siempre debe existir una condición de parada para evitar bucles infinitos." },
+      { label: "Control de Flujo (break/continue)", code: `# 1. PLANTEAMIENTO: Intervenir el flujo natural de un bucle sobre la marcha.
+# 2. CONTEXTO: Descartar registros corruptos (continue) y parar límite (break).
+# 3. DEFINICIONES: continue (salta el resto), break (destruye el bucle).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+for n in range(1, 6):
+    if n == 2:
+        print("Saltando el 2 (continue)")
+        continue  # Omite la impresión de abajo, pasa al 3
+        
+    if n == 4:
+        print("Límite alcanzado, deteniendo (break)")
+        break     # Rompe el bucle por completo
+        
+    print(f"Procesando: {n}")`, note: "continue omite la vuelta en curso; break interrumpe definitivamente el bucle." },
+      { label: "While-Else (Patrón Python)", code: `# 1. PLANTEAMIENTO: Saber si un bucle terminó naturalmente o fue interrumpido.
+# 2. CONTEXTO: Intentos de conexión a BD. Si gasta los 3, alerta de fallo.
+# 3. DEFINICIONES: El else del while se ejecuta si NO hubo 'break'.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+intentos = 3
+
+while intentos > 0:
+    print(f"Conectando... Intentos restantes: {intentos}")
+    intentos -= 1
+    # Si la red estuviera bien, aquí iría un 'break'
+else:
+    # Solo entra aquí si el contador llegó a 0 sin ser roto
+    print("Fallo crítico: Intentos agotados sin interrupción de break.")`, note: "El bloque else del while corre únicamente si no fue interrumpido por un break." }
+    ]
+  },
+  { id: "do-while", icon: "bi-arrow-repeat", title: "Emulación de do-while",
+    lead: "Python no posee la sentencia <code>do-while</code> nativamente; se implementa mediante el patrón <code>while True + break</code>.",
+    examples: [
+      { label: "Interacción Continua (Simulada)", code: `# 1. PLANTEAMIENTO: Ejecutar algo mínimo 1 vez y preguntar si repetimos.
+# 2. CONTEXTO: Un menú interactivo que le pide acciones al usuario.
+# 3. DEFINICIONES: while True crea un ciclo infinito intencional.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+while True:
+    print("\nGenerador Activo...")
+    # Aquí iría: opcion = input("¿Desea salir? (s/n)")
+    opcion = "s"  # Forzamos "s" para que no se congele el demo
+    
+    # Condición de escape
+    if opcion == "s":
+        print("Saliendo del programa...")
+        break`, note: "Garantiza que el bloque de código se ejecute obligatoriamente al menos una vez." },
+      { label: "Bandera (Flag) Booleana", code: `# 1. PLANTEAMIENTO: Controlar el ciclo de vida mediante estados booleanos.
+# 2. CONTEXTO: Un 'Game Loop' en videojuegos o demonios en servidores web.
+# 3. DEFINICIONES: El bucle depende del valor de la variable bandera.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Iniciamos el estado en Verdadero
+servidor_corriendo = True
+ciclos = 0
+
+while servidor_corriendo:
+    print("Procesando peticiones HTTP...")
+    ciclos += 1
+    
+    # Si pasa X tiempo, cambiamos la bandera
+    if ciclos >= 2:
+        print("Apagando servidor (Flag = False)")
+        servidor_corriendo = False`, note: "Control de ejecución inicial mediante un flag lógico." },
+      { label: "Encapsulado en Función", code: `# 1. PLANTEAMIENTO: Mantener al usuario atrapado hasta que de datos válidos.
+# 2. CONTEXTO: Solicitar una clave de seguridad de 4 dígitos.
+# 3. DEFINICIONES: return dentro del bucle expulsa el valor y rompe el ciclo.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+def pedir_clave():
+    while True:
+        # Simulamos la entrada del usuario
+        entrada = "1234" 
+        
+        # Validamos lógica
+        if len(entrada) == 4:
+            print("Clave aceptada")
+            # El return destruye el while True automáticamente
+            return entrada 
+            
+clave_final = pedir_clave()`, note: "Modularización limpia para asegurar captura de entradas válidas." }
+    ]
+  },
+  { id: "foreach", icon: "bi-list-check", title: "Comprensión de Listas (List Comprehensions)",
+    lead: "Sintaxis compacta y optimizada a nivel de lenguaje C para transformar colecciones en una sola línea.",
+    examples: [
+      { label: "Transformación (Map)", code: `# 1. PLANTEAMIENTO: Aplicar una fórmula matemática a toda una lista.
+# 2. CONTEXTO: Aplicar el ITBIS (18%) a una lista de precios base.
+# 3. DEFINICIONES: [formula for variable in iterable]
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+precios = [100, 200, 300]
+
+# Extraemos cada precio (p), multiplicamos por 1.18 y creamos lista nueva
+con_itbis = [p * 1.18 for p in precios]
+
+print("Precios Base:", precios)
+print("Con ITBIS:", con_itbis)`, note: "Es sustancialmente más rápida que un bucle for tradicional con .append()." },
+      { label: "Filtros Aritméticos (Filter)", code: `# 1. PLANTEAMIENTO: Quedarnos solo con datos que cumplen una regla.
+# 2. CONTEXTO: Depurar una base de datos para obtener mayores de edad.
+# 3. DEFINICIONES: [variable for variable in iterable if condicion]
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+edades = [15, 22, 17, 35, 40]
+
+# El 'if' final filtra descartando los que den False
+mayores = [e for e in edades if e >= 18]
+
+print("Todos:", edades)
+print("Solo mayores:", mayores)`, note: "Aplica filtros directamente al momento de iterar." },
+      { label: "Foreach Avanzado en Dicts", code: `# 1. PLANTEAMIENTO: Recorrer un diccionario sacando llave y valor a la vez.
+# 2. CONTEXTO: Mostrar en pantalla un reporte de cotizaciones de divisas.
+# 3. DEFINICIONES: .items() retorna una tupla (clave, valor) en cada iteración.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+tasas = {"USD": 60.5, "EUR": 65.2}
+
+# Desempaquetado simultáneo en el for
+for moneda, valor in tasas.items():
+    print(f"Divisa: {moneda} cotiza a {valor} pesos.")`, note: "El método .items() desempaqueta llave y valor simultáneamente." }
+    ]
+  },
+  { id: "arrays", icon: "bi-list-ol", title: "Listas: Mutabilidad, Métodos y Slicing",
+    lead: "La estructura de datos nativa más utilizada: indexada desde 0, dinámica y heterogénea.",
+    examples: [
+      { label: "CRUD (Carrito de Compras)", code: `# 1. PLANTEAMIENTO: Operaciones Crear, Leer, Actualizar y Borrar en memoria.
+# 2. CONTEXTO: Añadir, revisar y quitar artículos en un carrito e-commerce.
+# 3. DEFINICIONES: .append() (final), .insert() (posicion), .remove() (valor).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+carrito = ["Monitor", "Teclado"]
+
+carrito.append("Mouse")      # CREATE: Agrega al final
+carrito.insert(0, "Laptop")  # CREATE: Inyecta en el índice 0 (Empuja el resto)
+print("Lectura:", carrito[1]) # READ: Lee el índice 1
+
+carrito[1] = "Monitor 4K"    # UPDATE: Sobrescribe el valor
+
+carrito.remove("Teclado")    # DELETE: Borra por valor exacto
+print("Estado Final:", carrito)`, note: ".append() agrega al final; .insert() inserta en una posición arbitraria." },
+      { label: "Slicing (Rebanado Profundo)", code: `# 1. PLANTEAMIENTO: Extraer partes de un listado sin hacer iteraciones.
+# 2. CONTEXTO: Obtener el top 3 de ventas o paginar de a 10 elementos.
+# 3. DEFINICIONES: lista[inicio : fin_exclusivo : paso_salto]
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+datos = [10, 20, 30, 40, 50]
+
+print("Del índice 1 al 3:", datos[1:4])   # Extrae [20, 30, 40]
+print("Saltando de 2 en 2:", datos[0:5:2]) # Extrae [10, 30, 50]
+print("Invertir lista entera O(1):", datos[::-1])`, note: "nums[inicio:fin:paso] permite extraer subconjuntos sin bucles manuales." },
+      { label: "Extracción y Colas (.pop)", code: `# 1. PLANTEAMIENTO: Sacar el último o primer elemento y usarlo al instante.
+# 2. CONTEXTO: Sistemas de turnos (El siguiente cliente en la fila).
+# 3. DEFINICIONES: .pop() remueve el último y lo retorna en una variable.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+turnos = ["T-01", "T-02", "T-03"]
+
+# Sacamos el último elemento (Comportamiento de Pila LIFO)
+siguiente = turnos.pop()  
+
+print(f"Llamando al paciente {siguiente}")
+print("Quedan en sala:", turnos)`, note: ".pop() remueve y retorna el elemento extraído." }
+    ]
+  },
+  { id: "diccionarios", icon: "bi-journal-bookmark", title: "Diccionarios: Tablas Hash de Acceso Rápido",
+    lead: "Estructuras asociativas mutables de tipo Clave-Valor con tiempo de acceso O(1).",
+    examples: [
+      { label: "Perfiles Seguros (.get)", code: `# 1. PLANTEAMIENTO: Almacenar perfiles complejos (JSON) previniendo caídas.
+# 2. CONTEXTO: Leer el teléfono de un cliente del banco, si no tiene, omitir.
+# 3. DEFINICIONES: dict.get(clave, valor_default) evita el fatal KeyError.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+perfil_cliente = {
+    "id": 1050, 
+    "nombre": "Ana Pérez"
+}
+
+# Si usamos perfil_cliente["telefono"] el programa explota porque no existe.
+# Usamos .get() de forma defensiva:
+tel = perfil_cliente.get("telefono", "Sin Número Registrado")
+
+print(f"Cliente: {perfil_cliente['nombre']}, Tel: {tel}")`, note: ".get() previene caídas por KeyError si la clave no existe." },
+      { label: "Mutación y Actualización", code: `# 1. PLANTEAMIENTO: Editar o inyectar nuevos atributos en tiempo real.
+# 2. CONTEXTO: Actualizar el estado de la orden agregando el costo de envío.
+# 3. DEFINICIONES: dict["nueva"] = x (Crea) / .update() (Actualización masiva).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+orden = {"id": "A-99", "estado": "Procesando"}
+
+# Modificar existente
+orden["estado"] = "Enviado"
+
+# Añadir múltiple (Merge de diccionarios)
+orden.update({
+    "transporte": "FedEx",
+    "tracking": "12345"
+})
+print("Orden Consolidada:", orden)`, note: "Permite mutación dinámica de atributos existentes o nuevos." },
+      { label: "Limpieza y Purga (.pop)", code: `# 1. PLANTEAMIENTO: Quitar un campo sensible antes de enviarlo por red.
+# 2. CONTEXTO: Purgar el "TokenSecreto" antes de enviar el JSON al frontend.
+# 3. DEFINICIONES: .pop("clave") arranca la clave y devuelve su contenido.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+sesion = {
+    "user": "juan", 
+    "token_seguro": "xyz123-abc",
+    "activa": True
+}
+
+# Extraemos y destruimos el token
+token_salvado = sesion.pop("token_seguro")
+
+print("Payload Limpio (Seguro):", sesion)
+print("Token extraído:", token_salvado)`, note: "Remueve la clave y devuelve el valor que contenía." }
+    ]
+  },
+  { id: "matrices", icon: "bi-grid-3x3", title: "Matrices (Listas Bidimensionales)",
+    lead: "Representación tabular mediante listas anidadas dentro de otras listas.",
+    examples: [
+      { label: "Acceso Matricial Tabular", code: `# 1. PLANTEAMIENTO: Guardar datos en una cuadrícula tipo Excel.
+# 2. CONTEXTO: Representar un tablero, un tensor de IA, o celdas numéricas.
+# 3. DEFINICIONES: matriz[fila][columna] permite cruzar coordenadas.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Fila 0, Fila 1, Fila 2
+matriz = [
+    [1, 2, 3],  
+    [4, 5, 6],  
+    [7, 8, 9]   
+]
+
+# Accedemos a la Fila de índice 1, Columna de índice 2 (El número 6)
+celda = matriz[1][2]  
+print("Valor en coordenada [1][2]:", celda)`, note: "El primer índice selecciona la fila; el segundo, la columna." },
+      { label: "Recorrer Matriz (Anidada)", code: `# 1. PLANTEAMIENTO: Pasar por absolutamente todos los elementos del tablero.
+# 2. CONTEXTO: Aplicar un filtro fotográfico a cada pixel de una imagen 2D.
+# 3. DEFINICIONES: Doble bucle for (Filas -> Columnas).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+tablero = [[10, 20], [30, 40]]
+
+# El primer for extrae la fila completa [10, 20]
+for fila in tablero:
+    # El segundo for extrae los números de esa fila
+    for celda in fila:
+        print(celda, end=" - ") # end evita saltos de línea
+    print() # Salto de línea visual por fila`, note: "Se procesa mediante bucles for anidados." },
+      { label: "Inicialización Dinámica", code: `# 1. PLANTEAMIENTO: Crear un tablero vacío del tamaño que queramos.
+# 2. CONTEXTO: Iniciar el terreno de un juego o la base de una red neuronal.
+# 3. DEFINICIONES: Usamos List Comprehension para evitar clonación de memoria.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+filas, cols = 3, 3
+
+# Crea ceros por cada columna, y repite ese proceso por cada fila
+mat_ceros = [[0 for _ in range(cols)] for _ in range(filas)]
+
+# Alteramos solo 1 para confirmar que no se clona
+mat_ceros[1][1] = 99 
+
+for f in mat_ceros:
+    print(f)`, note: "Usa list comprehensions para no copiar referencias compartidas en RAM." }
+    ]
+  },
+  { id: "objetos", icon: "bi-box", title: "Objetos y Espacios de Nombres",
+    lead: "Todo en Python cuenta con identidad en memoria y métodos internos asociados.",
+    examples: [
+      { label: "Identidad id() y type()", code: `# 1. PLANTEAMIENTO: Comprobar que en Python literalmente todo es un objeto.
+# 2. CONTEXTO: Depuración técnica profunda de la arquitectura.
+# 3. DEFINICIONES: id() devuelve el sector de la RAM. type() su familia.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+texto = "Datos"
+
+# Nos dice en qué bloque hexadecimal de RAM vive
+print("Dirección en RAM:", id(texto))
+
+# Nos confirma a qué clase (Molde) pertenece
+print("Clase instanciada:", type(texto))`, note: "id() devuelve el identificador de memoria asignado por el intérprete." },
+      { label: "Estructuras Ligeras (SimpleNamespace)", code: `# 1. PLANTEAMIENTO: Agrupar datos con notación de punto (obj.nombre).
+# 2. CONTEXTO: Evitar diccionarios feos (dict["nombre"]) y simular objetos.
+# 3. DEFINICIONES: SimpleNamespace crea un objeto instanciado al vuelo.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+from types import SimpleNamespace
+
+# Creamos un objeto de datos de la nada
+usuario = SimpleNamespace(nombre="Carlos", rol="Dev")
+
+# Lectura directa, limpia y moderna
+print(f"El empleado {usuario.nombre} tiene el rol de {usuario.rol}")`, note: "Permite acceder a datos con notación de punto (.) sin declarar clases completas." },
+      { label: "Encadenamiento de Métodos Pro", code: `# 1. PLANTEAMIENTO: Limpiar texto sucio aplicando 3 métodos seguidos.
+# 2. CONTEXTO: Data Wrangling (Limpieza de datos de usuario u hojas de Excel).
+# 3. DEFINICIONES: objeto.metodo1().metodo2() (Method Chaining).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+texto_sucio = "  python 3.12  "
+
+# 1. .strip() quita espacios extremos
+# 2. .title() capitaliza la inicial de cada palabra
+texto_limpio = texto_sucio.strip().title()
+
+print(f"Limpieza final: '{texto_limpio}'")`, note: "Permite enlazar transformaciones directas sobre objetos sin variables extra." }
+    ]
+  },
+  { id: "funciones", icon: "bi-code-square", title: "Funciones Modulares: *args, **kwargs y Lambdas",
+    lead: "Empaquetan código reutilizable usando la palabra reservada <code>def</code>.",
+    examples: [
+      { label: "Validadores Bancarios (Defaults)", code: `# 1. PLANTEAMIENTO: Crear funciones con valores por defecto.
+# 2. CONTEXTO: Calcular la tasa de una cuenta de ahorros que asume 10% si no se especifica.
+# 3. DEFINICIONES: def nombre(parametros, opcional=X). return expulsa el dato.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# 'tasa' es opcional, asume 0.10 si el usuario no envía nada
+def calcular_cuota_ahorro(monto, tasa=0.10):
+    rendimiento = monto * (1 + tasa)
+    return rendimiento
+
+# Llamada normal
+print("Por Defecto (10%):", calcular_cuota_ahorro(1000))
+
+# Sobrescribiendo el parámetro
+print("Personalizado (5%):", calcular_cuota_ahorro(1000, 0.05))`, note: "Los parámetros con valores por defecto deben colocarse siempre al final." },
+      { label: "Inyección Dinámica (*args, **kwargs)", code: `# 1. PLANTEAMIENTO: Recibir una cantidad ilimitada y desconocida de parámetros.
+# 2. CONTEXTO: Sistemas de LOG o Auditoría que atrapan lo que caiga.
+# 3. DEFINICIONES: *args (Empaqueta en Tupla), **kwargs (Empaqueta en Dict).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+def auditoria_sistema(*args, **kwargs):
+    # args atrapa los sueltos (10, 20)
+    print("Posicionales (Tupla):", args)
+    
+    # kwargs atrapa los nombrados (cliente="Alpha")
+    print("Nombrados (Dict):", kwargs)
+
+# Inyección múltiple al vuelo
+auditoria_sistema(10, 20, cliente="Alpha", severidad="Alta")`, note: "*args crea una tupla; **kwargs genera un diccionario." },
+      { label: "Funciones Lambda (Anónimas)", code: `# 1. PLANTEAMIENTO: Crear funciones desechables de 1 sola línea.
+# 2. CONTEXTO: Ordenar diccionarios, filtrar datos y matemáticas de motor.
+# 3. DEFINICIONES: lambda param: expresión_retornada.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+# Define una función veloz sin nombre
+cuadrado = lambda x: x ** 2
+
+print("Cálculo rápido Lambda 5 al cuadrado =", cuadrado(5))`, note: "Funciones anónimas descartables de una sola línea muy usadas en Data." }
+    ]
+  },
+  { id: "poo", icon: "bi-diagram-3-fill", title: "Programación Orientada a Objetos (POO)",
+    lead: "Modelado de software estructurado en clases, constructores (<code>__init__</code>), herencia y atributos privados.",
+    examples: [
+      { label: "Clase y Constructor de Negocio", code: `# 1. PLANTEAMIENTO: Modelar una entidad de la vida real.
+# 2. CONTEXTO: Cada cliente del sistema es un objeto independiente en RAM.
+# 3. DEFINICIONES: class (Molde), __init__ (Constructor), self (Puntero a sí mismo).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+class Cuenta:
+    def __init__(self, titular, balance):
+        self.titular = titular  # Atributo individual del objeto
+        self.balance = balance
+        
+# Instanciamos la clase creando a 'Juancito'
+cliente1 = Cuenta("Juancito", 15000)
+
+print(f"Cuenta de {cliente1.titular} con balance {cliente1.balance}")`, note: "self hace referencia explícita a la instancia creada del objeto." },
+      { label: "Herencia (Jerarquías)", code: `# 1. PLANTEAMIENTO: Crear jerarquías de clases compartiendo propiedades.
+# 2. CONTEXTO: Un Gerente hereda las bases de un Empleado pero tiene más poder.
+# 3. DEFINICIONES: class Hija(Padre):. Reutiliza el código de su padre.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+class Empleado:
+    def rol(self): 
+        return "Colaborador Base"
+
+# Gerente hereda de Empleado
+class Gerente(Empleado):
+    def rol(self): 
+        # Sobrescribimos su comportamiento (Polimorfismo)
+        return "Líder de Área VIP"
+
+jefe = Gerente()
+print(f"El objeto es: {jefe.rol()}")`, note: "Hereda atributos y métodos de la clase padre permitiendo polimorfismo." },
+      { label: "Privacidad (Encapsulamiento)", code: `# 1. PLANTEAMIENTO: Proteger variables para que hackers o bugs no las toquen.
+# 2. CONTEXTO: Proteger una contraseña o el saldo en un banco del exterior.
+# 3. DEFINICIONES: El doble guion bajo (__) oculta la variable (Name Mangling).
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+class Boveda:
+    def __init__(self):
+        # Ocultamos la clave
+        self.__clave_maestra = "secreto123"
+        
+    def validar(self): 
+        return "Validación interna segura permitida."
+
+banco = Boveda()
+print(banco.validar())
+
+# Si intentas imprimir banco.__clave_maestra, el sistema se cae por seguridad.`, note: "El doble guion bajo (__var) restringe el acceso directo desde el exterior." }
+    ]
+  },
+  { id: "api-conceptos", icon: "bi-cloud-arrow-down", title: "Consumo de APIs REST (HTTP)",
+    lead: "Conexión a servicios web mediante la librería <code>requests</code> e ingesta de JSON a diccionarios.",
+    examples: [
+      { label: "Petición GET (Lectura)", code: `# 1. PLANTEAMIENTO: Extraer datos de la internet hacia el script.
+# 2. CONTEXTO: Conectarse al banco central para saber la tasa del Dólar.
+# 3. DEFINICIONES: requests.get() hace un puente HTTP. status_code == 200 es Éxito.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+import requests
+
+# Consultamos un endpoint público (Simulado rápido para la UI)
+# res = requests.get("https://open.er-api.com/v6/latest/USD")
+# if res.status_code == 200:
+#     print("Tasa EUR:", res.json()["rates"]["EUR"])
+print("Petición GET estructurada y lista para correr en backend.")`, note: "Valida siempre que status_code sea 200 antes de deserializar la respuesta." },
+      { label: "Petición POST (Escritura)", code: `# 1. PLANTEAMIENTO: Mandar un paquete de datos nuestro hacia la web.
+# 2. CONTEXTO: Inyectar un cliente nuevo en Salesforce o enviar un WhatsApp.
+# 3. DEFINICIONES: POST se usa para crear (CRUD). El JSON se serializa solo.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+import requests
+
+# Preparamos los datos
+payload = {"titulo": "Reporte Semestral", "monto": 500}
+
+# Los inyectamos a la API (Línea comentada por seguridad del entorno local)
+# res = requests.post("https://api.ejemplo.com/datos", json=payload)
+print("Payload empaquetado:", payload)`, note: "POST envía datos serializados en JSON en el cuerpo de la petición." },
+      { label: "Manejo Defensivo (Timeout)", code: `# 1. PLANTEAMIENTO: Evitar que el sistema se quede congelado si la web se cae.
+# 2. CONTEXTO: Microservicios en la nube. Si API 'A' falla, aborta y sigue.
+# 3. DEFINICIONES: timeout corta la conexión tras X segundos. try/except atrapa el error.
+# 4. CÓDIGO DETALLADAMENTE COMENTADO PASO A PASO:
+
+import requests
+
+try:
+    print("Iniciando conexión remota...")
+    # Si tarda más de 3 segundos, se lanza un Timeout Error
+    # res = requests.get("https://api.ejemplo.com", timeout=3)
+    
+    print("Conexión finalizada o abortada con gracia.")
+except Exception as e:
+    # Atrapamos la explosión sin que el programa muera
+    print("Error de red interceptado:", e)`, note: "El parámetro timeout evita que tu programa se congele ante fallos de conexión." }
+    ]
+  }
+];
+
+
+/* 3. Render Dinámico de los 19 Temas */
+const container = document.getElementById('topics-container');
+const tocList = document.getElementById('tocList');
+let html = "";
+let tocHtml = "";
+
+topics.forEach((topic, i) => {
+  const n = String(i + 1).padStart(2, '0');
+  tocHtml += `<a href="#${topic.id}">${n} · ${topic.title.split('(')[0].trim()}</a>`;
+
+  let tabsNav = "";
+  let tabsContent = "";
+  topic.examples.forEach((ex, j) => {
+    const active = j === 0 ? "active" : "";
+    const show = j === 0 ? "show active" : "";
+    const tabId = `${topic.id}-tab-${j}`;
+    tabsNav += `<li class="nav-item"><button class="nav-link ${active}" data-bs-toggle="tab" data-bs-target="#${tabId}" type="button">Forma ${j + 1}: ${ex.label}</button></li>`;
+    tabsContent += `
+      <div class="tab-pane fade ${show}" id="${tabId}">
+        <div class="example-pane">
+          <pre><code class="language-python">${escapeHtml(ex.code)}</code></pre>
+          <div class="example-note"><i class="bi bi-lightbulb-fill"></i> ${ex.note}</div>
+        </div>
+      </div>`;
+  });
+
+  html += `
+  <div class="topic-block" id="${topic.id}">
+    <div class="d-flex align-items-start gap-3 mb-2">
+      <div class="topic-number">${n}</div>
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi ${topic.icon}" style="color:var(--py-blue);font-size:1.3rem;"></i>
+          <h3 class="topic-title h5 mb-0">${topic.title}</h3>
+        </div>
+        <p class="topic-lead mt-2 mb-3">${topic.lead}</p>
+      </div>
+    </div>
+    <ul class="nav example-tabs mb-2">${tabsNav}</ul>
+    <div class="tab-content">${tabsContent}</div>
+  </div>`;
+});
+
+container.innerHTML = html;
+tocList.innerHTML = tocHtml;
+
+function escapeHtml(str) {
+  return str.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+}
+
+/* Resaltar sintaxis de todo el código generado dinámicamente con Prism */
+if (window.Prism) { Prism.highlightAll(); }
+</script>
+
+</div> <!-- FIN MAIN WRAPPER -->
+
+<!-- Script de Toggle para el Sidebar -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('sidebarToggleBtn');
+    const closeBtn = document.getElementById('closeSidebarBtn');
+    const sidebar = document.getElementById('sidebarMenu');
+    const wrapper = document.getElementById('mainWrapper');
+    
+    let isOpen = window.innerWidth >= 992; 
+    
+    if(!isOpen) {
+      sidebar.style.transform = 'translateX(-100%)';
+      wrapper.style.marginLeft = '0';
+    }
+
+    function toggleSidebar() {
+      isOpen = !isOpen;
+      if(isOpen) {
+        sidebar.style.transform = 'translateX(0)';
+        wrapper.style.marginLeft = window.innerWidth >= 992 ? '300px' : '0';
+      } else {
+        sidebar.style.transform = 'translateX(-100%)';
+        wrapper.style.marginLeft = '0';
+      }
+    }
+
+    if(btn) btn.addEventListener('click', toggleSidebar);
+    if(closeBtn) closeBtn.addEventListener('click', toggleSidebar);
+
+    window.addEventListener('resize', function() {
+      if(window.innerWidth < 992 && isOpen) {
+         wrapper.style.marginLeft = '0';
+      } else if (window.innerWidth >= 992 && isOpen) {
+         wrapper.style.marginLeft = '300px';
+      }
+    });
+
+    // --- LÓGICA GLOBAL: BOTÓN DE COPIAR EN CADA <pre> ---
+    const preElements = document.querySelectorAll('pre');
+    preElements.forEach(pre => {
+      const wrapperDiv = document.createElement('div');
+      wrapperDiv.style.position = 'relative';
+      pre.parentNode.insertBefore(wrapperDiv, pre);
+      wrapperDiv.appendChild(pre);
+
+      const btnCopy = document.createElement('button');
+      btnCopy.innerHTML = '<i class="bi bi-clipboard"></i> Copiar';
+      btnCopy.style.position = 'absolute';
+      btnCopy.style.top = '10px';
+      btnCopy.style.right = '10px';
+      btnCopy.style.background = 'rgba(255, 255, 255, 0.15)';
+      btnCopy.style.color = '#fff';
+      btnCopy.style.border = '1px solid rgba(255, 255, 255, 0.3)';
+      btnCopy.style.borderRadius = '6px';
+      btnCopy.style.padding = '4px 10px';
+      btnCopy.style.fontSize = '0.8rem';
+      btnCopy.style.cursor = 'pointer';
+      btnCopy.style.zIndex = '10';
+      btnCopy.style.transition = 'all 0.2s';
+      btnCopy.style.backdropFilter = 'blur(4px)';
+
+      btnCopy.onmouseover = () => btnCopy.style.background = 'rgba(255, 255, 255, 0.3)';
+      btnCopy.onmouseout = () => btnCopy.style.background = 'rgba(255, 255, 255, 0.15)';
+
+      btnCopy.addEventListener('click', async () => {
+        const text = pre.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          btnCopy.innerHTML = '<i class="bi bi-check2"></i> Copiado';
+          btnCopy.style.background = 'rgba(16, 185, 129, 0.8)';
+          btnCopy.style.borderColor = 'transparent';
+          setTimeout(() => {
+            btnCopy.innerHTML = '<i class="bi bi-clipboard"></i> Copiar';
+            btnCopy.style.background = 'rgba(255, 255, 255, 0.15)';
+            btnCopy.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+          }, 2500);
+        } catch (err) {
+          console.error("Fallo al copiar", err);
+        }
+      });
+      
+      wrapperDiv.appendChild(btnCopy);
+
+      // --- NUEVO BOTÓN: PROBAR CÓDIGO ---
+      const btnRun = document.createElement('button');
+      btnRun.innerHTML = '<i class="bi bi-play-fill"></i> Probar 🚀';
+      btnRun.style.position = 'absolute';
+      btnRun.style.top = '10px';
+      btnRun.style.right = '90px'; // A la izquierda del botón de copiar
+      btnRun.style.background = 'rgba(40, 167, 69, 0.8)';
+      btnRun.style.color = '#fff';
+      btnRun.style.border = '1px solid rgba(255, 255, 255, 0.3)';
+      btnRun.style.borderRadius = '6px';
+      btnRun.style.padding = '4px 10px';
+      btnRun.style.fontSize = '0.8rem';
+      btnRun.style.cursor = 'pointer';
+      btnRun.style.zIndex = '10';
+      btnRun.style.transition = 'all 0.2s';
+      btnRun.style.backdropFilter = 'blur(4px)';
+
+      btnRun.onmouseover = () => btnRun.style.background = 'rgba(40, 167, 69, 1)';
+      btnRun.onmouseout = () => btnRun.style.background = 'rgba(40, 167, 69, 0.8)';
+
+      btnRun.addEventListener('click', () => {
+        const code = pre.innerText;
+        document.getElementById('compilerCode').value = code;
+        document.getElementById('compilerOutput').innerText = '... esperando ejecución ...';
+        const modal = new bootstrap.Modal(document.getElementById('compilerModal'));
+        modal.show();
+      });
+
+      wrapperDiv.appendChild(btnRun);
+    });
+
+    // --- LÓGICA DE EJECUCIÓN (PYODIDE - WASM FRONTEND) ---
+    let pyodide = null;
+
+    document.getElementById('btnExecuteCode').addEventListener('click', async () => {
+      const code = document.getElementById('compilerCode').value;
+      const outputDiv = document.getElementById('compilerOutput');
+      const btnExecute = document.getElementById('btnExecuteCode');
+      
+      btnExecute.innerHTML = '<i class="bi bi-hourglass-split"></i> Cargando motor (Pyodide)...';
+      btnExecute.disabled = true;
+      outputDiv.innerHTML = '<span style="color:#a6e22e">Conectando compilador Python (WebAssembly)... esto puede tomar un momento la primera vez.</span>\n';
+
+      try {
+        // Cargar Pyodide si no está instanciado
+        if (!pyodide) {
+            if(typeof loadPyodide === 'undefined') {
+                 const script = document.createElement('script');
+                 script.src = "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js";
+                 document.head.appendChild(script);
+                 await new Promise(r => script.onload = r);
+            }
+            pyodide = await loadPyodide();
+        }
+
+        btnExecute.innerHTML = '<i class="bi bi-hourglass-split"></i> Cargando librerías...';
+        
+        // Interceptar la consola
+        let stdoutText = "";
+        pyodide.setStdout({ batched: (msg) => { stdoutText += msg + "\n"; } });
+        pyodide.setStderr({ batched: (msg) => { stdoutText += "[ERROR] " + msg + "\n"; } });
+
+        // Instalar librerías que el código necesite (pandas, matplotlib, etc) automáticamente
+        await pyodide.loadPackagesFromImports(code);
+
+        btnExecute.innerHTML = '<i class="bi bi-hourglass-split"></i> Ejecutando código...';
+        
+        // --- VALIDACIÓN DE ENTORNO (BLOQUEO DE PYODBC Y T-SQL PURO) ---
+        const codeLower = code.toLowerCase();
+        
+        // Bloqueo de T-SQL Puro
+        if (codeLower.includes('create database') || (codeLower.includes('insert into') && !codeLower.includes('cursor.execute')) || codeLower.includes('use finanzasdb')) {
+            outputDiv.innerHTML = '<strong style="color: #ffbd2e;"><i class="bi bi-exclamation-triangle-fill"></i> [ESTO ES UN SCRIPT DE SQL SERVER, NO PYTHON]</strong>\n\nEste bloque contiene código <strong style="color: #66d9ef;">T-SQL puro</strong> diseñado para ejecutarse en tu motor de base de datos.\n\n👉 Utiliza el botón de <strong style="color: white;">"Copiar"</strong> y pégalo directamente en una nueva consulta (New Query) dentro de <strong>SQL Server Management Studio (SSMS)</strong> o <strong>Azure Data Studio</strong>, y presiona F5.';
+            btnExecute.innerHTML = '<i class="bi bi-play-circle-fill"></i> Ejecutar ahora';
+            btnExecute.disabled = false;
+            return;
+        }
+
+        // Bloqueo de Streamlit (Redirección al Stlite)
+        if (codeLower.includes('import streamlit')) {
+            outputDiv.innerHTML = '<strong style="color: #0dcaf0;"><i class="bi bi-info-circle-fill"></i> [ENTORNO STREAMLIT DETECTADO]</strong>\n\nEste código es una aplicación web interactiva completa (Dashboard), no un script de consola.\n\n👉 Para probarlo en vivo, <strong>desplázate un poco más abajo en la página</strong> y verás el panel interactivo cargado en el entorno virtual (Stlite).\n👉 O, si prefieres, cópialo en tu VS Code y ejecuta <code>streamlit run app.py</code>.';
+            btnExecute.innerHTML = '<i class="bi bi-play-circle-fill"></i> Ejecutar ahora';
+            btnExecute.disabled = false;
+            return;
+        }
+
+        // Bloqueo de pyodbc
+        if (codeLower.includes('pyodbc') || codeLower.includes('driver={odbc') || (code.includes('cursor.execute') && !code.includes('import '))) {
+            outputDiv.innerHTML = '<strong style="color: #ffbd2e;"><i class="bi bi-exclamation-triangle-fill"></i> [LÍMITE DEL ENTORNO WEB]</strong>\n\nEste bloque utiliza <strong style="color: #66d9ef;">SQL Server y pyodbc</strong> a través de Python.\nPor estrictas medidas de seguridad, ningún navegador web permite conexiones TCP directas a bases de datos instaladas en tu computadora.\n\n👉 Utiliza el botón de <strong style="color: white;">"Copiar"</strong> y ejecuta este script directamente en tu entorno local (.venv) utilizando VS Code.';
+            btnExecute.innerHTML = '<i class="bi bi-play-circle-fill"></i> Ejecutar ahora';
+            btnExecute.disabled = false;
+            return;
+        }
+
+        // Silenciar warnings de urllib3 y Parchear Matplotlib para el entorno WebAssembly
+        await pyodide.runPythonAsync(`
+import warnings
+warnings.filterwarnings("ignore")
+try:
+    import urllib3
+    urllib3.disable_warnings()
+except:
+    pass
+
+import sys
+# Definir una versión parcheada de matplotlib si el usuario lo usa
+def parchear_matplotlib():
+    try:
+        import matplotlib
+        matplotlib.use("Agg") # Motor silencioso para WASM
+        import matplotlib.pyplot as plt
+        
+        # Guardar comportamiento original si hiciera falta
+        if not hasattr(plt, '_original_show'):
+            plt._original_show = plt.show
+            
+        def show_grafico_en_wasm(*args, **kwargs):
+            # Guardamos la imagen en el FS virtual de Pyodide para que el JS la lea
+            plt.savefig("grafico_auto_generado.png", bbox_inches="tight")
+            plt.clf() # Limpiamos la figura de memoria
+            
+        plt.show = show_grafico_en_wasm
+    except ImportError:
+        pass
+
+parchear_matplotlib()
+        `);
+
+        // Correr código
+        await pyodide.runPythonAsync(code);
+
+        // Mostrar stdout (limpiamos saltos de línea extra al final)
+        outputDiv.innerText = stdoutText.trim() || '[Ejecución exitosa, sin salida de texto]';
+
+        // Escanear el FileSystem de Pyodide por si el código generó una imagen (plt.savefig)
+        const files = pyodide.FS.readdir('.');
+        let imgGenerada = false;
+        for(let file of files) {
+            if(file.endsWith('.png') || file.endsWith('.jpg')) {
+                const imgData = pyodide.FS.readFile(file);
+                const blob = new Blob([imgData], { type: "image/png" });
+                const url = URL.createObjectURL(blob);
+                const img = document.createElement('img');
+                img.src = url;
+                img.style.maxWidth = "100%";
+                img.style.marginTop = "15px";
+                img.style.borderRadius = "8px";
+                img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+                
+                outputDiv.appendChild(document.createElement('br'));
+                outputDiv.appendChild(img);
+                
+                // Limpiar el archivo para futuras ejecuciones
+                pyodide.FS.unlink(file);
+                imgGenerada = true;
+            }
+        }
+        if(imgGenerada) {
+            outputDiv.innerHTML = '<strong style="color: #66d9ef;">¡Gráfico Generado Exitosamente!</strong>\n' + outputDiv.innerHTML;
+        }
+
+      } catch(err) {
+        outputDiv.innerText = 'Error de Ejecución:\n' + err.toString();
+      } finally {
+        btnExecute.innerHTML = '<i class="bi bi-play-circle-fill"></i> Ejecutar ahora';
+        btnExecute.disabled = false;
+      }
+    });
+
+  });
+</script>
+
+<!-- MODAL DEL COMPILADOR WEB -->
+<div class="modal fade" id="compilerModal" tabindex="-1" aria-labelledby="compilerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background: var(--bg-card); border: 1px solid var(--line);">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title fw-bold" id="compilerModalLabel" style="color: var(--py-blue);">
+          <i class="bi bi-terminal"></i> Terminal de Pruebas Python
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <label class="form-label fw-bold text-secondary">Código Fuente</label>
+            <textarea id="compilerCode" class="form-control font-monospace" style="height: 350px; background: #1e1e1e; color: #d4d4d4; font-size: 0.9rem; border: none;"></textarea>
+            <button id="btnExecuteCode" class="btn btn-success w-100 mt-2 fw-bold">
+              <i class="bi bi-play-circle-fill"></i> Ejecutar ahora
+            </button>
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label fw-bold text-secondary">Resultado (Salida / Consola)</label>
+            <div class="terminal" style="height: 350px; display: flex; flex-direction: column;">
+              <div class="terminal-bar">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="terminal-title">python run.py</span>
+              </div>
+              <div id="compilerOutput" class="terminal-body" style="flex: 1; overflow-y: auto; background: var(--code-bg); margin: 0; padding: 1rem; color: #a6e22e; white-space: pre-wrap;">
+                ... esperando ejecución ...
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
